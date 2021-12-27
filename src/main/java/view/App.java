@@ -1,4 +1,4 @@
-package ec.edu.espol.grupo_03;
+package view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
