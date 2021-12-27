@@ -3,5 +3,5 @@ module ec.edu.espol.grupo_03 {
     requires javafx.fxml;
 
     opens ec.edu.espol.grupo_03 to javafx.fxml;
-    exports view;
+    exports ec.edu.espol.grupo_03;
 }

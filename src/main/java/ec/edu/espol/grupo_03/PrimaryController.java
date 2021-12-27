@@ -1,4 +1,4 @@
-package view;
+package ec.edu.espol.grupo_03;
 
 import java.io.IOException;
 import javafx.fxml.FXML;
