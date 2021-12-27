@@ -1,6 +1,6 @@
 package tests.heap;
 
-import tda_heap.Heap;
+import model.heap.Heap;
 import java.util.Comparator;
 
 /**

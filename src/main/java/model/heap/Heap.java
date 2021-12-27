@@ -1,4 +1,4 @@
-package tda_heap;
+package model.heap;
 
 import java.util.Comparator;
 
