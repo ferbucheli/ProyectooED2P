@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ec.edu.espol.grupo_03;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 /**
  *
@@ -10,4 +9,13 @@ package ec.edu.espol.grupo_03;
  */
 public class MultiplayerOptionsController {
     
+     @FXML
+    void switchToGameSelection(ActionEvent event) {
+        App.switchScenes(event, "GameSelection", 820, 470);
+    }
+
+    @FXML
+    void switchToMultiplayerGame(ActionEvent event) {
+        App.switchScenes(event, "MultiplayerGame", 1080, 700);
+    }
 }

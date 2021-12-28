@@ -35,7 +35,7 @@
                      </children>
                   </VBox>
                </graphic></Button>
-            <Button mnemonicParsing="false" style="-fx-background-color: #1C4D4D;">
+            <Button mnemonicParsing="false" onAction="#switchToMultiplayerOptions" style="-fx-background-color: #1C4D4D;">
                <graphic>
                   <VBox alignment="CENTER">
                      <children>
@@ -58,7 +58,7 @@
                <HBox.margin>
                   <Insets left="40.0" right="40.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" style="-fx-background-color: #1C4D4D;">
+            <Button mnemonicParsing="false" onAction="#switchToAIOptions" style="-fx-background-color: #1C4D4D;">
                <graphic>
                   <VBox alignment="CENTER">
                      <children>
