@@ -10,6 +10,6 @@ import javafx.fxml.FXML;
 public class MainMenuController {
     @FXML
     void switchToGameSelection(ActionEvent event) {
-        App.switchScenes(event, "GameSelection", 740, 530);
+        App.switchScenes(event, "GameSelection", 820, 470);
     }
 }

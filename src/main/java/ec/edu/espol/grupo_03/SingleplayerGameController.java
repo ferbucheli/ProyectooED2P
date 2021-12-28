@@ -14,6 +14,6 @@ public class SingleplayerGameController {
 
     @FXML
     void switchToMainMenu(ActionEvent event) {
-        App.switchScenes(event, "GameSelection", 740, 530);
+        App.switchScenes(event, "MainMenu", 600, 400);
     }
 }
