@@ -21,9 +21,6 @@ public class Player {
         this(name, null);
     }
     
-    public boolean isCpu(){
-        return this.name.trim().toLowerCase().startsWith("cpu");
-    }
     
     @Override 
     public boolean equals (Object obj){

@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package game;
+package ec.edu.espol.model;
 
-
-public enum Symbol {
-    X ,
-    O
+/**
+ *
+ * @author Fernando
+ */
+public class AI {
+    
+    public static int minimax(){
+        return 0;
+    }
 }

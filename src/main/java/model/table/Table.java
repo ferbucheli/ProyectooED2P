@@ -17,10 +17,6 @@ public class Table implements Comparable<Table> {
         this.utility = 0;
     }
 
-    public Table(){
-        this(null);
-    }
-
     private Symbol getSymbolGridButton(int i){
         GridButton gb = (GridButton) gameGrid.getChildren().get(i);
         return gb.currentSymbol();

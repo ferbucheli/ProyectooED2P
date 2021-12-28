@@ -9,7 +9,7 @@ import javafx.fxml.FXML;
  */
 public class MultiplayerOptionsController {
     
-     @FXML
+    @FXML
     void switchToGameSelection(ActionEvent event) {
         App.switchScenes(event, "GameSelection", 820, 470);
     }

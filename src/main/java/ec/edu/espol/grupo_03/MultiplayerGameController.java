@@ -9,6 +9,9 @@ import javafx.scene.layout.HBox;
  * @author eduar
  */
 public class MultiplayerGameController {
+    
+    private boolean isGameOver;  
+
     @FXML
     private HBox fx_tableros_intermedios;
 
