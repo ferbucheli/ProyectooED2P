@@ -1,8 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ec.edu.espol.grupo_03;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 
 /**
  *
@@ -10,4 +9,13 @@ package ec.edu.espol.grupo_03;
  */
 public class SingleplayerOptionsController {
     
+     @FXML
+    void switchToSingleplayerGame(ActionEvent event) {
+        App.switchScenes(event, "SingleplayerGame", 1080, 700);
+    }
+    
+    @FXML
+    void switchToGameSelection(ActionEvent event) {
+        App.switchScenes(event, "GameSelection", 740, 530);
+    }
 }

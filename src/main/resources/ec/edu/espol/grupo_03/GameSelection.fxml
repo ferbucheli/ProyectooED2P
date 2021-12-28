@@ -7,17 +7,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="530.0" prefWidth="740.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.GameSelectionController">
    <children>
       <Label prefHeight="68.0" prefWidth="190.0" text="Tres en Raya">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
-      <HBox alignment="CENTER" prefHeight="239.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="302.0" prefWidth="745.0">
          <children>
-            <Button mnemonicParsing="false" text="Singleplayer" />
+            <Button mnemonicParsing="false" onAction="#switchToSingleplayerOptions" text="Singleplayer" />
             <Button mnemonicParsing="false" text="Multiplayer" />
             <Button mnemonicParsing="false" text="AI vs AI" />
          </children>
@@ -27,17 +26,17 @@
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
-         <padding>
-            <Insets top="40.0" />
-         </padding>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="68.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="121.0" prefWidth="745.0">
          <children>
-            <Button mnemonicParsing="false" text="Volver" />
+            <Button mnemonicParsing="false" onAction="#switchToMainMenu" text="Volver" />
          </children>
          <VBox.margin>
             <Insets />
          </VBox.margin>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
       </HBox>
    </children>
 </VBox>

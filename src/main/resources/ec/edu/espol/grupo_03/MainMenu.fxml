@@ -5,14 +5,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.MainMenuController">
    <children>
       <Label alignment="CENTER" text="Tres en Raya">
          <font>
             <Font size="31.0" />
          </font>
       </Label>
-      <Button mnemonicParsing="false" text="Jugar!" />
+      <Button mnemonicParsing="false" onAction="#switchToGameSelection" text="Jugar!" />
    </children>
 </VBox>
