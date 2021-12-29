@@ -48,8 +48,8 @@ public class GameValidations {
     
       private GridButton[][] ma;
       
-      public GridButton getCell (int row, int col) {
-            return ma[row][col];
+      public GridButton getCell (int fila, int col) {
+            return ma[fila][col];
         }
       
         private boolean hasEqualSymbol(GridButton button, Player player){
