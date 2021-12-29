@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import game.Symbol;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -29,6 +31,13 @@ public class MultiplayerGameController {
     private int turns = 0;
     private Player currentPlayer;
 
+    
+    /***** GAME VARIABLES ****/
+    Symbol PLAYER1_SYMBOL = MultiplayerOptionsController.player1Symbol;
+    Symbol PLAYER2_SYMBOL = MultiplayerOptionsController.player2Symbol;   
+    boolean recommendations = MultiplayerOptionsController.player1NeedsRecommendations;
+    boolean isPlayer1First =  MultiplayerOptionsController.isPlayer1Frist;       
+    
     @FXML
     private HBox fx_tableros_intermedios;
     @FXML
@@ -71,6 +80,16 @@ public class MultiplayerGameController {
             currentPlayer = player2;
         else
             currentPlayer = player1;
+    }
+        
+    @FXML
+    private void initialize() {
+        /*Se recuperan los valores de la siguiente manera*/
+        System.out.println("Tengo recomendaciones: " +recommendations);
+        System.out.println("El jugador_1 es primero? "  +isPlayer1First);
+        System.out.println("Valor de jugador1: " + PLAYER1_SYMBOL);
+        System.out.println("Valor de jugador2: " + PLAYER2_SYMBOL);
+
     }
     
     

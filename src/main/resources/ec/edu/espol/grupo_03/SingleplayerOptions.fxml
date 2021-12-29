@@ -44,12 +44,13 @@
                <font>
                   <Font size="19.0" />
                </font></Label>
-            <ImageView fitHeight="98.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="98.0" fitWidth="104.0" onMouseClicked="#set_symbol_x" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/x.png" />
                </image></ImageView>
             <Button mnemonicParsing="false" onMouseClicked="#setPlayerX" stylesheets="@../../../../CSS/newCascadeStyleSheet.css" text="X" />
-            <ImageView fitHeight="97.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="97.0" fitWidth="109.0" onMouseClicked="#set_symbol_o" pickOnBounds="true" preserveRatio="true">
+
                <image>
                   <Image url="@../../../../images/0.png" />
                </image></ImageView>
@@ -58,7 +59,7 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label text="Usted ha seleccionado X" textFill="#166897">
+            <Label fx:id="label_selection_symbol" text="Usted ha seleccionado X" textFill="#166897">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -71,7 +72,7 @@
                <font>
                   <Font size="24.0" />
                </font></Label>
-            <CheckBox mnemonicParsing="false" />
+            <CheckBox fx:id="checkbox_is_first" mnemonicParsing="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0">
@@ -80,7 +81,7 @@
                <font>
                   <Font size="23.0" />
                </font></Label>
-            <CheckBox mnemonicParsing="false" />
+            <CheckBox fx:id="checkbox_recommendations" mnemonicParsing="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

@@ -40,6 +40,11 @@ public class Player {
     public Symbol getPlayerSymbol() {
         return playerSymbol;
     }
+
+    public void setPlayerSymbol(Symbol playerSymbol) {
+        this.playerSymbol = playerSymbol;
+    }
+
     
     
 }
