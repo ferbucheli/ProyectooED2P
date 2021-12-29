@@ -32,4 +32,14 @@ public class Player {
         }
         return false;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public Symbol getPlayerSymbol() {
+        return playerSymbol;
+    }
+    
+    
 }

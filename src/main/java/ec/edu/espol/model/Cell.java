@@ -6,6 +6,7 @@
 package ec.edu.espol.model;
 
 import game.Symbol;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
@@ -18,6 +19,8 @@ public class Cell extends StackPane{
     private Symbol symbol;
     private int fila;
     private int columna;
+    private int ancho;
+    private int alto;
     
     
     public Cell(int fila, int columna){
@@ -27,19 +30,57 @@ public class Cell extends StackPane{
     }
     
     public void setLayout(int width, int height, int f, int c){
-        double w = width / c;
-        double h = height / f;
-        double x = w * fila;
-        double y = h * columna;
+        ancho = width/ c;
+        alto = height / f;
+        double x = ancho * fila;
+        double y = alto * columna;
         setLayoutX(x);
         setLayoutY(y);
-        setPrefWidth(w);
-        setPrefHeight(h);
-        setStyle("-fx-background-color: white; -fx-border-color: black;");
+        setPrefWidth(ancho);
+        setPrefHeight(alto);
+        setStyle("-fx-background-color: white; -fx-border-color: black;  -fx-border: 20px solid; -fx-background-radius: 15.0;");
     }
     
-    public void setImage(Symbol s){
-        return;
+    public void setImage(){
+        if(this.symbol.equals(Symbol.X)){
+            Image img = new Image("images/x1.png");
+            ImageView imv = new ImageView(img);
+            imv.setFitWidth(ancho - 50);
+            imv.setFitHeight(alto - 50);
+            this.getChildren().add(imv);
+        } else{
+            Image img = new Image("images/o.png");
+            ImageView imv = new ImageView(img);
+            imv.setFitWidth(ancho - 50);
+            imv.setFitHeight(alto - 50);
+            this.getChildren().add(imv);
+        } 
     }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    public int getFila() {
+        return fila;
+    }
+
+    public int getColumna() {
+        return columna;
+    }
+
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
+    }
+
+    public void setFila(int fila) {
+        this.fila = fila;
+    }
+
+    public void setColumna(int columna) {
+        this.columna = columna;
+    }
+    
+    
     
 }

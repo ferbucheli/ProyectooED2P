@@ -1,0 +1,6 @@
+
+.button{
+    -fx-text-fill: black;
+    -fx-shape: "M10 10";
+    -fx-background-color: black;
+}

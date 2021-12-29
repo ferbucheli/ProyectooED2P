@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerOptionsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerOptionsController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -38,7 +38,7 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="153.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="153.0" prefWidth="600.0" spacing="20.0">
          <children>
             <Label text="Seleccionar Ficha:   " textFill="WHITE">
                <font>
@@ -48,10 +48,12 @@
                <image>
                   <Image url="@../../../../images/x.png" />
                </image></ImageView>
+            <Button mnemonicParsing="false" onMouseClicked="#setPlayerX" stylesheets="@../../../../CSS/newCascadeStyleSheet.css" text="X" />
             <ImageView fitHeight="97.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/0.png" />
                </image></ImageView>
+            <Button mnemonicParsing="false" onMouseClicked="#setPlayerO" text="O" />
          </children>
       </HBox>
       <HBox alignment="CENTER">
