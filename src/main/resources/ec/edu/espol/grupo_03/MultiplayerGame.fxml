@@ -52,7 +52,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="1080.0">
                <children>
-                  <Label text="TÚ:" textFill="WHITE">
+                  <Label text="PLAYER_1:" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
@@ -62,7 +62,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Label text="    AI: " textFill="WHITE">
+                  <Label text="    PLAYER_2: " textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>

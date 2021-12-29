@@ -45,12 +45,12 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <ImageView fitHeight="98.0" fitWidth="104.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="98.0" fitWidth="104.0" onMouseClicked="#set_player1_symbol_x" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/x.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="97.0" fitWidth="109.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="97.0" fitWidth="109.0" onMouseClicked="#set_player1_symbol_o" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../images/0.png" />
                </image>
@@ -59,7 +59,7 @@
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label text="Jugador_1 ha seleccionado X" textFill="#166897">
+            <Label fx:id="label_selection_symbol" text="player_1: X VS player_2: O" textFill="#166897">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -73,7 +73,7 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <CheckBox mnemonicParsing="false" />
+            <CheckBox fx:id="cb_player1_is_first" mnemonicParsing="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0">
@@ -83,7 +83,7 @@
                   <Font size="23.0" />
                </font>
             </Label>
-            <CheckBox mnemonicParsing="false" />
+            <CheckBox fx:id="cb_recommendations" mnemonicParsing="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
