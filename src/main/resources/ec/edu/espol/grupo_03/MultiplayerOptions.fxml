@@ -68,22 +68,12 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
          <children>
-            <Label prefHeight="31.0" prefWidth="229.0" text="X inicia Partida:   " textFill="WHITE">
+            <Label prefHeight="35.0" prefWidth="260.0" text="player_1 inicia Partida:   " textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
             <CheckBox fx:id="cb_player1_is_first" mnemonicParsing="false" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0">
-         <children>
-            <Label prefHeight="34.0" prefWidth="231.0" text="Recomendaciones: " textFill="WHITE">
-               <font>
-                  <Font size="23.0" />
-               </font>
-            </Label>
-            <CheckBox fx:id="cb_recommendations" mnemonicParsing="false" />
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

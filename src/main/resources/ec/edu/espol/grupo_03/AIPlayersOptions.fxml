@@ -68,7 +68,7 @@
       </HBox>
       <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
          <children>
-            <Label prefHeight="31.0" prefWidth="229.0" text="X inicia Partida:   " textFill="WHITE">
+            <Label prefHeight="31.0" prefWidth="229.0" text="AI_1 inicia Partida:   " textFill="WHITE">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
