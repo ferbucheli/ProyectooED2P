@@ -1,8 +1,8 @@
 package ec.edu.espol.grupo_03;
 
-import ec.edu.espol.model.AI;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
+import ec.edu.espol.model.Minimax;
 import game.Symbol;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
@@ -24,6 +24,7 @@ public class SingleplayerGameController {
     
     
     private Grid tablero;
+    private Minimax tree;
     private Player humanPlayer;
     private Player AIplayer;
     //private AI player2;
@@ -62,11 +63,16 @@ public class SingleplayerGameController {
     
     
     public void setUpGame(Player humanPlayer, Player AIplayer){
-        this.humanPlayer = humanPlayer;
-        this.AIplayer = AIplayer;
-        this.currentPlayer = humanPlayer;
         setGrid();
         setCellEvent();
+        this.humanPlayer = humanPlayer;
+        this.AIplayer = AIplayer;
+        if(humanFirst)  
+            this.currentPlayer = humanPlayer;
+        else{
+            this.currentPlayer = AIplayer;
+            aiMove();
+        }
     }
     
     public void setGrid(){
@@ -81,13 +87,11 @@ public class SingleplayerGameController {
                 c.setOnMouseClicked(e -> {
                     if(e.getButton() == MouseButton.PRIMARY){
                         if(c.getSymbol() == null){
-                            
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
-                            changeTurn();
-                            
                         }
                     }
                     c.setImage();
+                    changeTurn();
                 });
             }
         }
@@ -98,6 +102,7 @@ public class SingleplayerGameController {
     public void changeTurn(){
         if(currentPlayer.equals(humanPlayer)){
             currentPlayer = AIplayer;
+            aiMove();
         } else{
             currentPlayer = humanPlayer;
         }
@@ -110,4 +115,22 @@ public class SingleplayerGameController {
         System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
     }
     
+    public void tree(){
+        tree = new Minimax(tablero);
+        tree.generateTree(currentPlayer);
+    }
+    
+    public void tablerosIntermedios(){
+        
+        fx_tableros_intermedios.getChildren().add(tree.getRoot().getChildren().get(0).getRoot().getContent());
+
+    }
+    
+    public void aiMove(){
+        tree();
+        tablero = tree.minimax(true, currentPlayer);
+        setCellEvent();
+        borderPane.setCenter(tablero);
+        changeTurn();
+    }
 }

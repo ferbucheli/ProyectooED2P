@@ -5,36 +5,38 @@
  */
 package model.tree;
 
+import ec.edu.espol.model.Cell;
+import ec.edu.espol.model.Grid;
+
 /**
- * <h1>Tree</h1>
- * This class is a tda that represent a tree data structure, support more than
- * 2 child.
  *
- * @param <T> the type that this tree store.
+ * @author Fernando
  */
+
 public class Tree<T> {
     
-    private TreeNode<T> root;
-    /**
-     * @param rootContent the value of the root.
-     */
-    public Tree(T rootContent){
-        this.root = new TreeNode<>(rootContent);
-    }
+//    private TreeNode<T> root;
+//
+//    public Tree(T content){
+//        this.root = new TreeNode<>(content);
+//    }
+//    
+//    public Tree(){
+//        this((T) null);
+//    }
+//    
+//    public void setRoot(TreeNode<T> root){
+//        this.root = root;
+//    }
+//    
+//    public TreeNode<T> getRoot(){
+//        return root;
+//    }
     
-    public Tree(){
-        this((T) null);
-    }
+
     
-    public void setRoot(TreeNode<T> root){
-        this.root = root;
-    }
-    
-    public TreeNode<T> getRoot(){
-        return root;
-    }
-    
-    public Tree<T> getChildrenByUtility(){
-        return root.getChildren().peek();
-    }
+//    public Cell minimax(Grid grid){
+//        int best_move = Integer.MAX_VALUE;
+//        
+//    }
 }

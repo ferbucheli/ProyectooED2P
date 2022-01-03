@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerGameController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -108,7 +108,7 @@
       </VBox>
    </center>
    <bottom>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" BorderPane.alignment="CENTER">
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="189.0" prefWidth="1084.0" BorderPane.alignment="CENTER">
          <children>
             <Label text="Tableros Intermedios:" textFill="WHITE">
                <VBox.margin>
@@ -118,51 +118,7 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <HBox fx:id="fx_tableros_intermedios" alignment="CENTER" prefHeight="84.0" prefWidth="1084.0" spacing="10.0">
-               <children>
-                  <VBox alignment="CENTER" prefHeight="116.0" prefWidth="114.0">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/tic-tac-toe%20(1).png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Utilidad: 5" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="375.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/tic-tac-toe%20(1).png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Utilidad: 4" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" layoutX="400.0" layoutY="10.0" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/tic-tac-toe%20(1).png" />
-                           </image>
-                        </ImageView>
-                        <Label text="Utilidad: -1" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="11.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </VBox>
-               </children></HBox>
+            <HBox fx:id="fx_tableros_intermedios" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="1084.0" spacing="10.0" />
          </children>
       </VBox>
    </bottom>

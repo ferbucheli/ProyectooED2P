@@ -7,6 +7,11 @@ package model.players;
 
 import game.Symbol;
 
+/**
+ *
+ * @author Fernando
+ */
+
 public class Player {
     
     private final String name;
@@ -43,6 +48,13 @@ public class Player {
 
     public void setPlayerSymbol(Symbol playerSymbol) {
         this.playerSymbol = playerSymbol;
+    }
+    
+    public Symbol getOppoenentSymbol(){
+        if(this.playerSymbol.equals(Symbol.X))
+            return Symbol.O;
+        else
+            return Symbol.X;
     }
 
     

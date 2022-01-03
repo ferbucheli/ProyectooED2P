@@ -3,28 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model.tree;
+package ec.edu.espol.model;
 
-import java.util.PriorityQueue;
+import java.util.ArrayList;
+import model.tree.Tree;
 
 /**
  *
- * @author Lenovo
- * @param <T>
+ * @author Fernando
  */
-public class TreeNode<T> {
+public class MinimaxNode<T> {
     private T content;
-    private PriorityQueue<Tree<T>> children;
+    private ArrayList<Minimax> children;
     
-    public TreeNode(T value){
+    public MinimaxNode(T value){
         this.content = value;
+        this.children = new ArrayList<>();
     }
     
-    public TreeNode(){
+    public MinimaxNode(){
         
     }
     
-    public PriorityQueue<Tree<T>> getChildren(){
+    public ArrayList<Minimax> getChildren(){
         return children;
     }
 
@@ -32,7 +33,7 @@ public class TreeNode<T> {
         return content;
     }
     
-    public void setChildren(PriorityQueue<Tree<T>> children){
+    public void setChildren(ArrayList<Minimax> children){
         this.children = children;
     }
     

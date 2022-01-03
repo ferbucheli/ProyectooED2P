@@ -7,6 +7,7 @@ import java.util.Iterator;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import model.players.Player;
 import model.table.Table;
 
 /**
@@ -19,6 +20,7 @@ public class Grid extends Pane implements Comparable<Grid>{
     private int columnas;
     private int width;
     private int height;
+    private boolean state;
     private int utility;
    
     
@@ -33,10 +35,15 @@ public class Grid extends Pane implements Comparable<Grid>{
         this.height = height;  
         ajustarGrid();
     }
+
+    public Grid() {
+        this.utility = 0;
+    }
+    
     
     private void ajustarGrid(){
         this.setPrefSize(width, height);
-        this.setMinSize(width, height);
+        this.setMinSize(0, 0);
         this.setMaxSize(width, height);
         this.setStyle("-fx-background-color:white");
     }
@@ -56,13 +63,13 @@ public class Grid extends Pane implements Comparable<Grid>{
         }
     }
     
-    private Symbol getSymbolGridButton(int i){
-        GridButton gb = (GridButton) this.getChildren().get(i);
-        return gb.currentSymbol();
+    private Symbol getSymbol(int i){
+        Cell cell = (Cell) this.getChildren().get(i);
+        return cell.getSymbol();
     }
 
     private boolean rowsAndColumns(Symbol opponentSymbol, int i, int m){
-        return getSymbolGridButton(i) != opponentSymbol && getSymbolGridButton(i+m) != opponentSymbol && getSymbolGridButton(i+m*2) != opponentSymbol;
+        return getSymbol(i) != opponentSymbol && getSymbol(i+m) != opponentSymbol && getSymbol(i+m*2) != opponentSymbol;
     }
 
     private int utilityByRows(Symbol opponentSymbol){
@@ -83,12 +90,12 @@ public class Grid extends Pane implements Comparable<Grid>{
     }
 
     private int utilityByDiagonals(Symbol opponentSymbol){
-        if(getSymbolGridButton(4) == opponentSymbol) 
+        if(getSymbol(4) == opponentSymbol) 
             return 0;
         int count = 0;
-        if(getSymbolGridButton(0) != opponentSymbol && getSymbolGridButton(8) != opponentSymbol) 
+        if(getSymbol(0) != opponentSymbol && getSymbol(8) != opponentSymbol) 
             count++;
-        if(getSymbolGridButton(2) != opponentSymbol && getSymbolGridButton(6) != opponentSymbol) 
+        if(getSymbol(2) != opponentSymbol && getSymbol(6) != opponentSymbol) 
             count++;
         return count;
     }
@@ -126,6 +133,76 @@ public class Grid extends Pane implements Comparable<Grid>{
         return columnas;
     }
 
+    public void setGrid(ArrayList<ArrayList<Cell>> grid) {
+        this.grid = grid;
+    }
+
+    public void setFilas(int filas) {
+        this.filas = filas;
+    }
+
+    public void setColumnas(int columnas) {
+        this.columnas = columnas;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+    
+    public Grid copy(int width, int height){
+        Grid result = new Grid(3, 3, width, height);
+        result.generateGrid();
+        for(int f = 0; f < this.filas; f++){
+            for(int c = 0; c < this.columnas; c++){
+                result.grid.get(f).add(c,this.grid.get(f).get(c));
+            }
+        }
+        return result;
+    }
+    
+    public int availableSpaces(){
+        int count = 0;
+        for(int f = 0; f < this.filas; f++){
+            for(int c = 0; c < this.columnas; c++){
+                if(this.grid.get(f).get(c).getSymbol().equals(null)){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    
+    
+    public ArrayList<Grid> generateMoves(Symbol s){
+        ArrayList<Grid> output = new ArrayList<>();
+        for(int f = 0; f < filas; f++){
+            for(int c = 0; c < columnas; c++){
+                if(this.grid.get(f).get(c).getSymbol() == null){
+                    Grid result = this.copy(300, 300);
+                    Cell cell = new Cell(f, c);
+                    cell.setLayout(result.width, result.height, result.filas, result.columnas);
+                    cell.setSymbol(s);
+                    cell.setImage();
+                    result.grid.get(f).add(c, cell);
+                    result.getChildren().add(cell);
+                    output.add(result);
+                }
+            }
+        }
+        return output;
+    }   
 
     
     

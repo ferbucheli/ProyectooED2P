@@ -13,11 +13,11 @@ import java.util.Comparator;
  * @param <T>
  */
 public interface TreeComparator<T> extends Comparator<Tree<T>> {
-    int compareContent(T c1, T c2);
-    
-    @Override
-    default int compare(Tree<T> t1, Tree<T> t2){
-        return compareContent(t1.getRoot().getContent(), t2.getRoot().getContent());
-    }
+//    int compareContent(T c1, T c2);
+//    
+//    @Override
+//    default int compare(Tree<T> t1, Tree<T> t2){
+//        return compareContent(t1.getRoot().getContent(), t2.getRoot().getContent());
+//    }
     
 }
