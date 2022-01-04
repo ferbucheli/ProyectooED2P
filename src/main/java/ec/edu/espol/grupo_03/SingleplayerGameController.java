@@ -58,34 +58,34 @@ public class SingleplayerGameController {
         App.switchScenes(event, "MainMenu", 600, 400);
     }
 
-    @FXML
-    private void initialize() {
+    public void setUpPlayers(){
         /*Se recuperan los valores de la siguiente manera*/
         Symbol humanSymbol  = SingleplayerOptionsController.playerSymbol;
         Symbol AISymbol = SingleplayerOptionsController.aiSymbol;
-        boolean ishumanFirst = SingleplayerOptionsController.isPlayerFrist;
         String humanName = SingleplayerOptionsController.humanName;
         
         /*Se crean los jugadores para la partida*/
         this.humanPlayer = new Player(humanName, humanSymbol);
         this.AIplayer = new Player("AI",AISymbol);
-        
-        
-        setUpGame(ishumanFirst);
+    }
+    
+    @FXML
+    private void initialize() {
+        setUpGame();
     }
     
     
-    public void setUpGame(boolean isHumanFirst){
-        
-        setUpUIPlayerInformation();
-        whoStartsFirst(isHumanFirst);
+    public void setUpGame(){
+        setUpPlayers();
+        updateUIPlayerInformation();
+        whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
         setGrid();
         setCellEvent();
         
     }
     
     /*Pone la informacion de los jugadores en la parte grafica*/
-    public void setUpUIPlayerInformation(){
+    public void updateUIPlayerInformation(){
         playerLabel.setText(humanPlayer.getName());
         playerPointsLabel.setText(String.valueOf(humanPlayer.getWins()));
         aiPointsLabel.setText(String.valueOf(AIplayer.getWins()));
@@ -115,7 +115,7 @@ public class SingleplayerGameController {
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
                         } else {
-                            System.out.println("No puedes colocar en el mismo lugar");
+                            //throws alert
                         }
                     }
                     c.setImage();

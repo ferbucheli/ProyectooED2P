@@ -64,22 +64,35 @@
          <children>
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="1080.0">
                <children>
-                  <Label text="PLAYER_1:" textFill="WHITE">
+                  <Label fx:id="localNameLabel" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text=": " textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="25.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="localPointsLabel" text=" 0" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="visitorNameLabel" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
+                     <HBox.margin>
+                        <Insets left="40.0" />
+                     </HBox.margin>
                   </Label>
-                  <Label text=" 0" textFill="WHITE">
+                  <Label text=": " textFill="WHITE">
                      <font>
-                        <Font size="20.0" />
+                        <Font name="Arial" size="25.0" />
                      </font>
                   </Label>
-                  <Label text="    PLAYER_2: " textFill="WHITE">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Label text="0" textFill="WHITE">
+                  <Label fx:id="visitorPointsLabel" text="0" textFill="WHITE">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -96,7 +109,7 @@
                         <Font name="Arial" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="68.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="symbolTurnImage" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../images/0.png" />
                      </image>

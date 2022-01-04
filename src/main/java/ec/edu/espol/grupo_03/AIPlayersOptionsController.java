@@ -17,39 +17,40 @@ public class AIPlayersOptionsController {
     private Label label_selection_symbol;
 
     @FXML
-    private CheckBox xIsFirst;
+    private CheckBox aiFirstCheckBox;
 
-    public static Symbol ai1Symbol;
-    public static Symbol ai2Symbol;
-    public static boolean isAI1First;
+    public static Symbol localPlayerSymbol;
+    public static Symbol visitorPlayerSymbol;
+    public static boolean isLocalFirst;
     
     
     @FXML
     void set_symbol_AI1_o(MouseEvent event) {
-        label_selection_symbol.setText("AI_1: O VS AI_2: X");
-        ai1Symbol = Symbol.O;
-        ai2Symbol = Symbol.X;
+        label_selection_symbol.setText("CPU1:  O   VS   CPU2:  X");
+        localPlayerSymbol = Symbol.O;
+        visitorPlayerSymbol = Symbol.X;
     }
 
     @FXML
     void set_symbol_AI1_x(MouseEvent event) {
-        label_selection_symbol.setText("AI_1: X VS AI_2: O");
-        ai1Symbol = Symbol.X;
-        ai2Symbol = Symbol.O;
+        label_selection_symbol.setText("CPU1:  X   VS   CPU2:  O");
+        localPlayerSymbol = Symbol.X;
+        visitorPlayerSymbol = Symbol.O;
     }
     
     @FXML
     private void initialize() {
         /*Valores por defecto de inicialización*/
-        isAI1First = false;
-        ai1Symbol = Symbol.X;
-        ai2Symbol = Symbol.O;
+        isLocalFirst = false;
+        localPlayerSymbol = Symbol.X;
+        visitorPlayerSymbol = Symbol.O;
     }
     
     @FXML
     void switchToAIPlayersGame(ActionEvent event) {
-        if(xIsFirst.isSelected())
-            isAI1First = true;
+        if(aiFirstCheckBox.isSelected())
+            isLocalFirst = true;
+        
         App.switchScenes(event, "AIPlayersGame", 1080, 700);
     }
 

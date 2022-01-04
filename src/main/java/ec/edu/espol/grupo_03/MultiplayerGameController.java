@@ -9,10 +9,15 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import game.Symbol;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -27,21 +32,33 @@ public class MultiplayerGameController {
     
     private boolean isGameOver;
     private Grid tablero;
-    private Player PLAYER_1;
-    private Player PLAYER_2;
-    private int turns = 0;
-    private Player currentPlayer;  /*Variable que permite el cambio de jugador*/
-
     
-    /***** GAME VARIABLES ****/
-    Symbol PLAYER1_SYMBOL = MultiplayerOptionsController.player1Symbol;
-    Symbol PLAYER2_SYMBOL = MultiplayerOptionsController.player2Symbol;   
-    boolean isPlayer1First =  MultiplayerOptionsController.isPlayer1Frist;       
+    private int turns = 0;
+    
+
+    private Player localPlayer;
+    private Player visitorPlayer;
+    private Player currentPlayer;      
     
     @FXML
     private HBox fx_tableros_intermedios;
     @FXML
     private BorderPane borderPane;
+    
+    @FXML
+    private Label localNameLabel;
+
+    @FXML
+    private Label localPointsLabel;
+
+    @FXML
+    private Label visitorNameLabel;
+
+    @FXML
+    private Label visitorPointsLabel;
+    
+    @FXML
+    private ImageView symbolTurnImage;
     
     
     @FXML
@@ -49,12 +66,50 @@ public class MultiplayerGameController {
         App.switchScenes(event, "MainMenu", 600, 400);
     }
     
-    public void setupGame(Player player1, Player player2){
-        this.PLAYER_1 = player1;
-        this.PLAYER_2 = player2;
-        whoStartsGame(player1, player2);
+    public void setUpPlayers(){
+        String localPlayerName = MultiplayerOptionsController.localPlayerName;
+        Symbol localPlayerSymbol = MultiplayerOptionsController.localPlayerSymbol;
+        
+        String visitorPlayerName = MultiplayerOptionsController.visitorPlayerName;
+        Symbol visitorPlayerSymbol = MultiplayerOptionsController.visitorPlayerSymbol; 
+        
+        this.localPlayer = new Player(localPlayerName, localPlayerSymbol);
+        this.visitorPlayer = new Player(visitorPlayerName, visitorPlayerSymbol);
+    }
+    
+    
+    @FXML
+    private void initialize() {
+        setupGame();
+    }
+    
+    public void setupGame(){
+        setUpPlayers();
+        whoStartsFirst(MultiplayerOptionsController.isLocalFirst);
+        updateUIPlayerInformation();
         setGrid();
         setCellEvent();
+        
+    }
+    
+    /*Pone la informacion de los jugadores en la parte grafica*/
+    public void updateUIPlayerInformation(){
+        
+        localNameLabel.setText(localPlayer.getName());
+        localPointsLabel.setText(String.valueOf(localPlayer.getWins()));
+        visitorNameLabel.setText(visitorPlayer.getName());
+        visitorPointsLabel.setText(String.valueOf(visitorPlayer.getWins()));
+        
+    }
+    
+    /*Metodo para poner que jugador va a jugar primero*/
+    void whoStartsFirst(boolean isLocalFirst){
+        if(isLocalFirst){
+            currentPlayer = localPlayer;
+        } else {
+            currentPlayer = visitorPlayer;
+        }
+        updateCurrentSymbolImage();
     }
     
     public void setGrid(){
@@ -71,6 +126,8 @@ public class MultiplayerGameController {
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
                             changeTurn();
+                        } else {
+                            //throws alert
                         }
                     }
                     c.setImage();
@@ -79,38 +136,39 @@ public class MultiplayerGameController {
         }
     }
     
-    public void changeTurn(){
-        if(currentPlayer.equals(PLAYER_1)){
-            currentPlayer = PLAYER_2;
-        } else{
-            currentPlayer = PLAYER_1;
-        }
-    }
+    /*Actualiza la imagen que se encuentra en la parte superior dependiendo del turno*/
+    private void updateCurrentSymbolImage(){
+        String xPath = "src/main/resources/images/x1.png";
+        String oPath = "src/main/resources/images/o.png";
         
-    @FXML
-    private void initialize() {
-        /*Se recuperan los valores de la siguiente manera*/
-        System.out.println("El jugador_1 es primero? "  +isPlayer1First);
-        System.out.println("Valor de jugador1: " + PLAYER1_SYMBOL);
-        System.out.println("Valor de jugador2: " + PLAYER2_SYMBOL);
-        
-        Player p1 = new Player("PLAYER_1", PLAYER1_SYMBOL);
-        Player p2 = new Player("PLAYER_2", PLAYER2_SYMBOL);
-        
-        
-        setupGame(p1, p2);
-    }
-    
-    
-    /*Metodo para poner que jugador va a jugar primero*/
-    void whoStartsGame(Player p1, Player p2){
-        if(isPlayer1First){
-            currentPlayer = p1;
+        if(currentPlayer.getPlayerSymbol().equals(Symbol.X)){
+            try(FileInputStream input = new FileInputStream(xPath)){
+                Image img = new Image(input, 70, 70, false, false);
+                symbolTurnImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ xPath +" image not found");
+            }
         } else {
-            currentPlayer = p2;
+            
+            try(FileInputStream input = new FileInputStream(oPath)){
+                Image img = new Image(input, 70, 70, false, false);
+                symbolTurnImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ oPath +" image not found");
+            }
         }
+
     }
     
+    public void changeTurn(){
+        if(currentPlayer.equals(localPlayer)){
+            currentPlayer = visitorPlayer;
+            updateCurrentSymbolImage();
+        } else{
+            currentPlayer = localPlayer;
+            updateCurrentSymbolImage();
+        }
+    }
     
     /*Método que ayuda al movimiento del jugador ACTUAL (currentPlayer)*/
     @FXML

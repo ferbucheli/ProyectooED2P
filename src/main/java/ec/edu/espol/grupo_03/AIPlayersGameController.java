@@ -6,6 +6,7 @@ import game.Symbol;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -19,10 +20,11 @@ public class AIPlayersGameController {
     
     private boolean isGameOver;
     private Grid tablero;
-    private Player PLAYER_1;
-    private Player PLAYER_2;
     private int turns = 0;
-    private Player currentPlayer;  /*Variable que permite el cambio de jugador*/
+    
+    private Player localPlayer;
+    private Player visitorPlayer;
+    private Player currentPlayer;  
     
     @FXML
     private HBox fx_tableros_intermedios;
@@ -30,10 +32,18 @@ public class AIPlayersGameController {
     @FXML
     private BorderPane borderPane;
     
-    /*****GAME VARIABLES***/
-    Symbol PLAYER1_SYMBOL = AIPlayersOptionsController.ai1Symbol;
-    Symbol PLAYER2_SYMBOL = AIPlayersOptionsController.ai2Symbol;
-    boolean isPlayer1First = AIPlayersOptionsController.isAI1First;
+    @FXML
+    private Label localNameLabel;
+
+    @FXML
+    private Label localPointsLabel;
+
+    @FXML
+    private Label visitorNameLabel;
+
+    @FXML
+    private Label visitorPointsLabel;
+    
     
     
     @FXML
@@ -41,18 +51,16 @@ public class AIPlayersGameController {
         App.switchScenes(event, "MainMenu", 600, 400);
     }
     
+    public void setUpPlayers(){
+        Symbol localPlayerSymbol = AIPlayersOptionsController.localPlayerSymbol;
+        Symbol visitorPlayerSymbol = AIPlayersOptionsController.visitorPlayerSymbol; 
+        this.localPlayer = new Player("CPU1", localPlayerSymbol);
+        this.visitorPlayer = new Player("CPU2", visitorPlayerSymbol);
+    }
+    
     @FXML
     void initialize(){
-        System.out.println("La AI_1 empieza?: " + isPlayer1First);
-        System.out.println("La AI_1 tiene la ficha: " + PLAYER1_SYMBOL);
-        System.out.println("La AI_2 tiene la ficha: " + PLAYER2_SYMBOL);
-        
-        
-        Player p1 = new Player("PLAYER_1", PLAYER1_SYMBOL);
-        Player p2 = new Player("PLAYER_2", PLAYER2_SYMBOL);
-        
-        
-        setupGame(p1, p2);
+        setupGame();
     }
     
     @FXML
@@ -60,12 +68,32 @@ public class AIPlayersGameController {
         
     }
     
-    public void setupGame(Player player1, Player player2){
-        this.PLAYER_1 = player1;
-        this.PLAYER_2 = player2;
-        whoStartsGame(player1, player2);
+    public void setupGame(){
+        setUpPlayers();
+        whoStartsFirst(AIPlayersOptionsController.isLocalFirst);
+        updateUIPlayerInformation();
         setGrid();
         setCellEvent();
+    }
+    
+    /*Pone la informacion de los jugadores en la parte grafica*/
+    public void updateUIPlayerInformation(){
+        
+        localNameLabel.setText(localPlayer.getName());
+        localPointsLabel.setText(String.valueOf(localPlayer.getWins()));
+        visitorNameLabel.setText(visitorPlayer.getName());
+        visitorPointsLabel.setText(String.valueOf(visitorPlayer.getWins()));
+        
+    }
+    
+    
+     /*Metodo para poner que jugador va a jugar primero*/
+    void whoStartsFirst(boolean isLocalFirst){
+        if(isLocalFirst){
+            currentPlayer = localPlayer;
+        } else {
+            currentPlayer = visitorPlayer;
+        }
     }
     
     public void setGrid(){
@@ -91,21 +119,11 @@ public class AIPlayersGameController {
     }
     
     public void changeTurn(){
-        if(currentPlayer.equals(PLAYER_1)){
-            currentPlayer = PLAYER_2;
+        if(currentPlayer.equals(localPlayer)){
+            currentPlayer = visitorPlayer;
         } else{
-            currentPlayer = PLAYER_1;
+            currentPlayer = localPlayer;
         }
     }
-    
-     /*Metodo para poner que jugador va a jugar primero*/
-    void whoStartsGame(Player p1, Player p2){
-        if(isPlayer1First){
-            currentPlayer = p1;
-        } else {
-            currentPlayer = p2;
-        }
-    }
-
     
 }

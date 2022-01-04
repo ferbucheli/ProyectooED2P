@@ -42,7 +42,7 @@
          <children>
             <Label text="Seleccionar Ficha:   " textFill="WHITE">
                <font>
-                  <Font size="19.0" />
+                  <Font name="Arial" size="20.0" />
                </font>
             </Label>
             <ImageView fitHeight="98.0" fitWidth="104.0" onMouseClicked="#set_symbol_AI1_x" pickOnBounds="true" preserveRatio="true">
@@ -54,30 +54,32 @@
                <image>
                   <Image url="@../../../../images/0.png" />
                </image>
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
             </ImageView>
          </children>
       </HBox>
       <HBox alignment="CENTER">
          <children>
-            <Label fx:id="label_selection_symbol" text="AI_1: X VS AI_2: O" textFill="#166897">
+            <Label fx:id="label_selection_symbol" text="CPU1:  O   VS   CPU2:  X" textFill="#166897">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="41.0" prefWidth="600.0">
          <children>
-            <Label prefHeight="31.0" prefWidth="229.0" text="AI_1 inicia Partida:   " textFill="WHITE">
+            <Label prefHeight="46.0" prefWidth="249.0" text="CPU1 inicia Partida:   " textFill="WHITE">
                <font>
                   <Font name="Arial" size="24.0" />
                </font>
             </Label>
-            <CheckBox mnemonicParsing="false" fx:id="xIsFirst" />
+            <CheckBox fx:id="aiFirstCheckBox" mnemonicParsing="false" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="35.0" prefWidth="600.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+      <HBox alignment="CENTER" prefHeight="105.0" prefWidth="600.0">
          <children>
             <Button mnemonicParsing="false" onAction="#switchToGameSelection" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #1C4D4D;" text="Volver" textFill="WHITE">
                <font>
