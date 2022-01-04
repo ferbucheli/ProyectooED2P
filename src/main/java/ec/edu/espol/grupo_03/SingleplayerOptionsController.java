@@ -10,6 +10,7 @@ import javafx.scene.input.MouseEvent;
 import model.players.Player;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 
 
@@ -24,17 +25,25 @@ public class SingleplayerOptionsController {
 
     @FXML
     private Label label_selection_symbol;
+    
+    @FXML
+    private TextField namefield;
 
     public static Symbol playerSymbol;
     public static Symbol aiSymbol;
     public static boolean isPlayerFrist;
+    public static String humanName;
     
     @FXML
     void switchToSingleplayerGame(ActionEvent event) {
         if(checkbox_is_first.isSelected())
             isPlayerFrist = true;
-            
-        App.switchScenes(event, "SingleplayerGame", 1080, 700);
+        
+        if(namefield.getText() != null)
+            humanName = namefield.getText();
+        
+        
+        App.switchScenes(event, "SingleplayerGame", 1100, 830);
     }
     
     @FXML
@@ -43,6 +52,7 @@ public class SingleplayerOptionsController {
         isPlayerFrist = false;
         playerSymbol = Symbol.X;
         aiSymbol = Symbol.O;
+        humanName = "You";
     }
 
     @FXML

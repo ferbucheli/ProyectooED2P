@@ -11,7 +11,7 @@ public class GameSelectionController {
     
     @FXML
     void switchToMainMenu(ActionEvent event) {
-        App.switchScenes(event, "MainMenu", 740, 530);
+        App.switchScenes(event, "MainMenu", 600, 400);
     }
 
     @FXML

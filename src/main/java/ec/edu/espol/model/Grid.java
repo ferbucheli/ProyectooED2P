@@ -185,6 +185,7 @@ public class Grid extends Pane implements Comparable<Grid>{
     }
     
     
+    /*Recorre el arreglo para generar los distintos movimientos posibles*/
     public ArrayList<Grid> generateMoves(Symbol s){
         ArrayList<Grid> output = new ArrayList<>();
         for(int f = 0; f < filas; f++){

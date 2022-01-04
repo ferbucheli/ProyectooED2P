@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.players;
 
 import game.Symbol;
@@ -16,10 +11,20 @@ public class Player {
     
     private final String name;
     private Symbol playerSymbol;
+    private int wins;
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
 
     public Player(String name, Symbol playerSymbol) {
         this.name = name;
         this.playerSymbol = playerSymbol;
+        this.wins = 0;
     }
 
     public Player(String name) {
@@ -27,15 +32,8 @@ public class Player {
     }
     
     
-    @Override 
-    public boolean equals (Object obj){
-        if(obj == this)
-            return true;
-        if(obj instanceof Player){
-            Player p1 = (Player) obj;
-            return p1.name.equals(this.name);
-        }
-        return false;
+    public boolean equals(Player player2){ 
+        return this.getName().equals(player2.getName());
     }
 
     public String getName() {

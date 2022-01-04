@@ -10,6 +10,8 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -25,11 +27,11 @@ public class SingleplayerGameController {
     
     private Grid tablero;
     private Minimax tree;
+    private boolean isGameOver;
+    
     private Player humanPlayer;
     private Player AIplayer;
-    //private AI player2;
     private Player currentPlayer;
-    private boolean isGameOver;
     
     
     @FXML
@@ -37,13 +39,19 @@ public class SingleplayerGameController {
     
     @FXML
     private BorderPane borderPane;
+    
+    @FXML
+    private Label playerLabel;
 
+    @FXML
+    private Label playerPointsLabel;
     
-    /*****GAME VARIABLES*****/
-    Symbol PLAYER_SYMBOL = SingleplayerOptionsController.playerSymbol;
-    Symbol AI_SYMBOL = SingleplayerOptionsController.aiSymbol;
-    boolean humanFirst = SingleplayerOptionsController.isPlayerFrist;
+    @FXML
+    private Label aiPointsLabel;
     
+    @FXML
+    private ImageView playerImageSymbol;
+ 
     
     @FXML
     void switchToMainMenu(ActionEvent event) {
@@ -53,21 +61,39 @@ public class SingleplayerGameController {
     @FXML
     private void initialize() {
         /*Se recuperan los valores de la siguiente manera*/
-        System.out.println("El humano es primero? "  +humanFirst);
-        System.out.println("Valor de humano: " + PLAYER_SYMBOL);
-        System.out.println("Valor de computadora: " + AI_SYMBOL);
+        Symbol humanSymbol  = SingleplayerOptionsController.playerSymbol;
+        Symbol AISymbol = SingleplayerOptionsController.aiSymbol;
+        boolean ishumanFirst = SingleplayerOptionsController.isPlayerFrist;
+        String humanName = SingleplayerOptionsController.humanName;
         
         /*Se crean los jugadores para la partida*/
-        setUpGame(new Player("YOU", PLAYER_SYMBOL), new Player("AI",AI_SYMBOL));
+        this.humanPlayer = new Player(humanName, humanSymbol);
+        this.AIplayer = new Player("AI",AISymbol);
+        
+        
+        setUpGame(ishumanFirst);
     }
     
     
-    public void setUpGame(Player humanPlayer, Player AIplayer){
+    public void setUpGame(boolean isHumanFirst){
+        
+        setUpUIPlayerInformation();
+        whoStartsFirst(isHumanFirst);
         setGrid();
         setCellEvent();
-        this.humanPlayer = humanPlayer;
-        this.AIplayer = AIplayer;
-        if(humanFirst)  
+        
+    }
+    
+    /*Pone la informacion de los jugadores en la parte grafica*/
+    public void setUpUIPlayerInformation(){
+        playerLabel.setText(humanPlayer.getName());
+        playerPointsLabel.setText(String.valueOf(humanPlayer.getWins()));
+        aiPointsLabel.setText(String.valueOf(AIplayer.getWins()));
+    }
+    
+    private void whoStartsFirst(boolean isHumanFirst){
+        /*Elige quien va a ser primero*/
+        if(isHumanFirst)  
             this.currentPlayer = humanPlayer;
         else{
             this.currentPlayer = AIplayer;
@@ -88,6 +114,8 @@ public class SingleplayerGameController {
                     if(e.getButton() == MouseButton.PRIMARY){
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
+                        } else {
+                            System.out.println("No puedes colocar en el mismo lugar");
                         }
                     }
                     c.setImage();
@@ -102,7 +130,7 @@ public class SingleplayerGameController {
     public void changeTurn(){
         if(currentPlayer.equals(humanPlayer)){
             currentPlayer = AIplayer;
-            aiMove();
+            aiMove();   /*Movimiento de máquina*/
         } else{
             currentPlayer = humanPlayer;
         }
