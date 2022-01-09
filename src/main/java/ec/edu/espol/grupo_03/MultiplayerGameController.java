@@ -208,13 +208,14 @@ public class MultiplayerGameController {
         }
     }
     
+    /*Metodo que permite el cambio del jugador*/
     public void changeTurn(){
         if(currentPlayer.equals(localPlayer)){
             currentPlayer = visitorPlayer;
-            updateCurrentSymbolImage();
+            updateCurrentSymbolImage();  /*Actualiza la imagen que se encuentra en el centro*/
         } else{
             currentPlayer = localPlayer;
-            updateCurrentSymbolImage();
+            updateCurrentSymbolImage(); /*Actualiza la imagen que se encuentra en el centro*/
         }
     }
     
@@ -231,10 +232,24 @@ public class MultiplayerGameController {
             
             if(winnerSymbol.equals(localPlayer.getPlayerSymbol())){
                 System.out.println("Ha ganado " + localPlayer.getName());
+                
+                /*Actualizacion de puntaje*/
+                int currentWins = localPlayer.getWins() + 1;
+                localPlayer.setWins(currentWins);
+                
             } else {
-                System.out.println("Ha ganado " + visitorPlayer.getName());
+                System.out.println("Ha ganado commit" + visitorPlayer.getName());
+                
+                 /*Actualizacion de puntaje*/
+                int currentWins = visitorPlayer.getWins() + 1;
+                visitorPlayer.setWins(currentWins);
             }
         }
+    }
+    
+    /*Se actualiza la UI que contiene los puntajes*/
+    private void updateUIPlayersWins(){
+        
     }
     
 }
