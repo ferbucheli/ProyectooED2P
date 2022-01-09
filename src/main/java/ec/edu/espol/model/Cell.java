@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.model;
 
 import game.Symbol;
@@ -17,8 +12,8 @@ import javafx.scene.layout.StackPane;
 public class Cell extends StackPane{
     
     private Symbol symbol;
-    private int fila;
-    private int columna;
+    private int fila;     /*Posicion en la que se encuentra en el Grid*/
+    private int columna;  
     private int ancho;
     private int alto;
     

@@ -23,6 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.players.Player;
+import validation.GameValidator;
 
 /**
  *
@@ -60,6 +61,12 @@ public class MultiplayerGameController {
     @FXML
     private ImageView symbolTurnImage;
     
+    @FXML
+    private ImageView localSymbolImage;
+    
+    @FXML
+    private ImageView visitorSymbolImage;
+    
     
     @FXML
     void switchToMainMenu(ActionEvent event) {
@@ -89,6 +96,7 @@ public class MultiplayerGameController {
         updateUIPlayerInformation();
         setGrid();
         setCellEvent();
+        loadPlayersImages();
         
     }
     
@@ -125,6 +133,8 @@ public class MultiplayerGameController {
                     if(e.getButton() == MouseButton.PRIMARY){
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
+                            verifyGameStatus();
+                            
                             changeTurn();
                         } else {
                             //throws alert
@@ -140,6 +150,7 @@ public class MultiplayerGameController {
     private void updateCurrentSymbolImage(){
         String xPath = "src/main/resources/images/x1.png";
         String oPath = "src/main/resources/images/o.png";
+        
         
         if(currentPlayer.getPlayerSymbol().equals(Symbol.X)){
             try(FileInputStream input = new FileInputStream(xPath)){
@@ -160,6 +171,43 @@ public class MultiplayerGameController {
 
     }
     
+    private void loadPlayersImages(){
+        String xPath = "src/main/resources/images/x1.png";
+        String oPath = "src/main/resources/images/o.png";
+    
+        if(localPlayer.getPlayerSymbol().equals(Symbol.X)){
+            try(FileInputStream input = new FileInputStream(xPath)){
+                Image img = new Image(input, 50, 50, false, false);
+                localSymbolImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ xPath +" image not found");
+            }
+            
+            try(FileInputStream input = new FileInputStream(oPath)){
+                Image img = new Image(input, 50, 50, false, false);
+                visitorSymbolImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ oPath +" image not found");
+            }
+        } else {
+            
+            try(FileInputStream input = new FileInputStream(xPath)){
+                Image img = new Image(input, 50, 50, false, false);
+                visitorSymbolImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ xPath +" image not found");
+            }
+            
+            try(FileInputStream input = new FileInputStream(oPath)){
+                Image img = new Image(input, 50, 50, false, false);
+                localSymbolImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ oPath +" image not found");
+            }
+            
+        }
+    }
+    
     public void changeTurn(){
         if(currentPlayer.equals(localPlayer)){
             currentPlayer = visitorPlayer;
@@ -174,6 +222,19 @@ public class MultiplayerGameController {
     @FXML
     void helpPlayer(ActionEvent event) {
         System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
+    }
+    
+    private void verifyGameStatus(){
+        if(GameValidator.gameValidation(tablero)>0){
+            System.out.println("Se ha acabado el juego");
+            Symbol winnerSymbol = GameValidator.getWinner();
+            
+            if(winnerSymbol.equals(localPlayer.getPlayerSymbol())){
+                System.out.println("Ha ganado " + localPlayer.getName());
+            } else {
+                System.out.println("Ha ganado " + visitorPlayer.getName());
+            }
+        }
     }
     
 }

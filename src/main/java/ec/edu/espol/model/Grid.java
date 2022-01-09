@@ -16,9 +16,9 @@ import model.table.Table;
  */
 public class Grid extends Pane implements Comparable<Grid>{
     private ArrayList<ArrayList<Cell>> grid;
-    private int filas;
-    private int columnas;
-    private int width;
+    private int filas;     /*Cantidad de filas que genera*/
+    private int columnas; /*Cantidad de columnas que genera*/
+    private int width;     /*Tamaño de */
     private int height;
     private boolean state;
     private int utility;
@@ -55,7 +55,7 @@ public class Grid extends Pane implements Comparable<Grid>{
     public void generateGrid(){
         for(int f = 0; f < filas; f++){
             for(int c = 0; c < columnas; c++){
-                Cell cell = new Cell(f, c);
+                Cell cell = new Cell(f, c);   /*Se crea con la posicion en (y,x)*/
                 cell.setLayout(width, height, filas, columnas);
                 grid.get(f).add(c, cell);
                 getChildren().add(cell);
