@@ -64,6 +64,11 @@
          <children>
             <HBox alignment="CENTER" prefHeight="56.0" prefWidth="1080.0">
                <children>
+                  <ImageView fx:id="localSymbolImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <Label fx:id="localNameLabel" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="20.0" />
@@ -79,12 +84,17 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
+                  <ImageView fx:id="visitorSymbolImage" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <HBox.margin>
+                        <Insets left="60.0" right="10.0" />
+                     </HBox.margin>
+                  </ImageView>
                   <Label fx:id="visitorNameLabel" textFill="WHITE">
                      <font>
                         <Font name="Arial" size="20.0" />
                      </font>
                      <HBox.margin>
-                        <Insets left="40.0" />
+                        <Insets />
                      </HBox.margin>
                   </Label>
                   <Label text=": " textFill="WHITE">
@@ -98,6 +108,9 @@
                      </font>
                   </Label>
                </children>
+               <VBox.margin>
+                  <Insets bottom="15.0" />
+               </VBox.margin>
             </HBox>
             <HBox alignment="CENTER">
                <children>
@@ -115,8 +128,12 @@
                      </image>
                   </ImageView>
                </children>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
             </HBox>
             <BorderPane fx:id="borderPane" prefHeight="365.0" prefWidth="1080.0" />
+            <VBox prefHeight="200.0" prefWidth="100.0" />
          </children>
       </VBox>
    </center>
