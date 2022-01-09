@@ -54,29 +54,42 @@ public class Minimax {
         }
     }
     
+    public Grid minimax(){
+        Grid result = new Grid();
+        result.setUtility(-1);
+        
+        for(Minimax m : this.root.getChildren()){
+            if(m.getRoot().getContent().compareTo(result) > 0)
+                result = m.getRoot().getContent();
+        }
+        return result;
+    }
+    
 
     
-    public Grid minimax(boolean maxPlayer, Player player){
+    public int minimax(boolean maxPlayer, Player player){
         if(this.isLeaf()){
             this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol());
-            return this.root.getContent();
+            return this.root.getContent().getUtility();
         }
         if(maxPlayer){
-            Grid maxEval = new Grid();
-            maxEval.setUtility(Integer.MIN_VALUE);
+            int maxEval = -10000;
             for(Minimax t : this.root.getChildren()){
-                Grid eval = t.minimax(false, player);
-                if(maxEval.compareTo(eval) < 0)
+                int eval = t.minimax(false, player);
+                if(maxEval < eval){
+                    t.root.getContent().setUtility(eval);
                     maxEval = eval;
+                }
             }
             return maxEval;
         } else {
-            Grid minEval = new Grid();
-            minEval.setUtility(Integer.MAX_VALUE);
+            int minEval = 10000;
             for(Minimax t : this.root.getChildren()){
-                Grid eval = t.minimax(true, player);
-                if(minEval.compareTo(eval) > 0)
+                int eval = t.minimax(true, player);
+                if(minEval > eval){
                     minEval = eval;
+                    t.root.getContent().setUtility(eval);
+                }
             }
             return minEval;
         }
