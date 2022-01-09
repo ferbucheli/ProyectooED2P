@@ -1,9 +1,13 @@
 package playerlog;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import model.players.Player;
 
 /**
@@ -25,5 +29,26 @@ public class InformationLog {
         } catch (IOException ioe) {
             System.out.println("Uh oh, something went wrong :(");
         }
+    }
+    public static void LeerArchivo(){
+        try(BufferedReader lector = new BufferedReader(new FileReader(PATH))){
+            String linea = "";
+            lector.readLine();
+            ArrayList<Player> lista = new ArrayList<>();
+            while((linea = lector.readLine())!=null){
+                String[] datos = linea.split(",");
+                String nombre = datos[0];
+                int puntos = Integer.parseInt(datos[1]);
+                Player p = new Player(nombre, puntos);
+                lista.add(p);
+                Collections.sort(lista);
+                Collections.reverse(lista);
+            }
+            for(Player p : lista){
+                System.out.println(p);
+            }
+        }catch(IOException e){
+            System.out.println("Error al leer el archivo" +e);
+        }  
     }
 }

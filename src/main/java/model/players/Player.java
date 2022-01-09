@@ -21,6 +21,13 @@ public class Player implements Comparable<Player> {
         this.wins = wins;
     }
 
+    public Player(String name, int wins) {
+        this.name = name;
+        this.wins = wins;
+    }
+    
+    
+
     public Player(String name, Symbol playerSymbol) {
         this.name = name;
         this.playerSymbol = playerSymbol;
@@ -61,4 +68,10 @@ public class Player implements Comparable<Player> {
         if(wins > p.wins) return 1;
         return 0;
     }   
+
+    @Override
+    public String toString() {
+        return "Nombre = " + name + "\tpuntaje = " + wins;
+    }
+    
 }
