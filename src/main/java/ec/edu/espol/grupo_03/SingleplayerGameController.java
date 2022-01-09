@@ -78,10 +78,9 @@ public class SingleplayerGameController {
     public void setUpGame(){
         setUpPlayers();
         updateUIPlayerInformation();
-        whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
         setGrid();
         setCellEvent();
-        
+        whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
     }
     
     /*Pone la informacion de los jugadores en la parte grafica*/
@@ -114,12 +113,10 @@ public class SingleplayerGameController {
                     if(e.getButton() == MouseButton.PRIMARY){
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
-                        } else {
-                            //throws alert
+                            c.setImage();
+                            changeTurn();
                         }
                     }
-                    c.setImage();
-                    changeTurn();
                 });
             }
         }
@@ -154,10 +151,22 @@ public class SingleplayerGameController {
 
     }
     
+    public void setImages(){
+        for(ArrayList<Cell> a : this.tablero.getGrid()){
+            for(Cell c : a){
+                if(c.getSymbol() != null){
+                    c.setImage();
+                }
+            }
+        }
+    }
     public void aiMove(){
         tree();
-        tablero = tree.minimax(true, currentPlayer);
+        //borderPane.getChildren().clear();
+        tree.minimax(true, currentPlayer);
+        tablero = tree.minimax();
         setCellEvent();
+        setImages();
         borderPane.setCenter(tablero);
         changeTurn();
     }

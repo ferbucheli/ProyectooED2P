@@ -164,9 +164,10 @@ public class Grid extends Pane implements Comparable<Grid>{
     public Grid copy(int width, int height){
         Grid result = new Grid(3, 3, width, height);
         result.generateGrid();
-        for(int f = 0; f < this.filas; f++){
-            for(int c = 0; c < this.columnas; c++){
-                result.grid.get(f).add(c,this.grid.get(f).get(c));
+        for(int f = 0; f < result.filas; f++){
+            for(int c = 0; c < result.columnas; c++){
+                if(this.grid.get(f).get(c).getSymbol() != null)
+                    result.grid.get(f).get(c).setSymbol(this.grid.get(f).get(c).getSymbol());
             }
         }
         return result;
@@ -192,12 +193,11 @@ public class Grid extends Pane implements Comparable<Grid>{
             for(int c = 0; c < columnas; c++){
                 if(this.grid.get(f).get(c).getSymbol() == null){
                     Grid result = this.copy(300, 300);
-                    Cell cell = new Cell(f, c);
-                    cell.setLayout(result.width, result.height, result.filas, result.columnas);
+                    Cell cell = result.grid.get(f).get(c);
                     cell.setSymbol(s);
                     cell.setImage();
-                    result.grid.get(f).add(c, cell);
-                    result.getChildren().add(cell);
+                    //result.grid.get(f).add(c, cell);
+                    //result.getChildren().add(cell);
                     output.add(result);
                 }
             }
