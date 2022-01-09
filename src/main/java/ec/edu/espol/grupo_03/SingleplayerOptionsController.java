@@ -1,5 +1,6 @@
 package ec.edu.espol.grupo_03;
 
+import alerts.GameAlert;
 import game.Symbol;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -39,11 +40,16 @@ public class SingleplayerOptionsController {
         if(checkbox_is_first.isSelected())
             isPlayerFrist = true;
         
-        if(namefield.getText() != null)
+        if(namefield.getText() != null && !namefield.getText().equals("")){
             humanName = namefield.getText();
+            App.switchScenes(event, "SingleplayerGame", 1100, 830);
+        } else {
+            GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Completa todos los campos!");
+        }
         
         
-        App.switchScenes(event, "SingleplayerGame", 1100, 830);
+        
+        
     }
     
     @FXML

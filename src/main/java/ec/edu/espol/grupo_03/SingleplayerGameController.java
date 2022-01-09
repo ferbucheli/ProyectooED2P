@@ -1,5 +1,6 @@
 package ec.edu.espol.grupo_03;
 
+import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
 import ec.edu.espol.model.Minimax;
@@ -10,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +19,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.players.Player;
+import playerlog.InformationLog;
+import validation.GameValidator;
 
 /**
  *
@@ -55,7 +59,9 @@ public class SingleplayerGameController {
     
     @FXML
     void switchToMainMenu(ActionEvent event) {
+        generateLog();
         App.switchScenes(event, "MainMenu", 600, 400);
+        
     }
 
     public void setUpPlayers(){
@@ -114,7 +120,11 @@ public class SingleplayerGameController {
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
                             c.setImage();
+                            verifyGameStatus();
                             changeTurn();
+                            verifyGameStatus();
+                        } else {
+                            GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Ya se encuentra una ficha en este lugar");
                         }
                     }
                 });
@@ -169,5 +179,52 @@ public class SingleplayerGameController {
         setImages();
         borderPane.setCenter(tablero);
         changeTurn();
+    }
+    
+    private void verifyGameStatus(){
+        int status = GameValidator.gameValidation(tablero);
+        if(status > 0){
+            System.out.println("Se ha acabado el juego");
+            Symbol winnerSymbol = GameValidator.getWinner();
+            
+            if(status == 1 && winnerSymbol.equals(humanPlayer.getPlayerSymbol()) ){
+                
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + humanPlayer.getName());
+                /*Actualizacion de puntaje*/
+                int currentWins = humanPlayer.getWins() + 1;
+                humanPlayer.setWins(currentWins);
+                
+            } else if (status == 1) {
+                System.out.println("Ha ganado " + AIplayer.getName());
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + AIplayer.getName());
+                
+                 /*Actualizacion de puntaje*/
+                int currentWins = AIplayer.getWins() + 1;
+                AIplayer.setWins(currentWins);
+            } if (status == 2){
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Han quedado empate");
+            }
+            /*En caso de que WIN o TIE*/
+            updateUIPlayersWins(); /*Se actualiza el puntaje*/
+            resetGame();           /*Se actualiza el tablero*/
+        }
+    
+}
+
+    /*Se actualiza la UI que contiene los puntajes*/
+    private void updateUIPlayersWins(){
+        playerPointsLabel.setText(String.valueOf(humanPlayer.getWins()));
+        aiPointsLabel.setText(String.valueOf(AIplayer.getWins()));
+    }
+
+    /*Vuelve a cargar todos los datos*/
+    private void resetGame(){
+        setGrid();
+        setCellEvent();
+    }
+    
+    private void generateLog(){
+        InformationLog.createPlayerLog(humanPlayer);
+        System.out.println("Se ha generado PlayerLog correctamente");
     }
 }
