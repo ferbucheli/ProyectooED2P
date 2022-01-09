@@ -12,6 +12,6 @@ public class Main {
     public static void main(String[] args) {
         Player player = new Player("Eduardo", Symbol.X);
         player.setWins(10);
-        InformationLog.createPlayerLog(player);
+        InformationLog.createPlayerLog(player);   
     }
 }
