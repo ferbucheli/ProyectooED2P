@@ -3,7 +3,6 @@ package tests.log;
 import game.Symbol;
 import model.players.Player;
 import playerlog.InformationLog;
-import static playerlog.InformationLog.LeerArchivo;
 
 /**
  *
@@ -14,6 +13,7 @@ public class Main {
 //        Player player = new Player("Eduardo", Symbol.X);
 //        player.setWins(10);
 //        InformationLog.createPlayerLog(player);  
-          LeerArchivo();
+          InformationLog i = new InformationLog();
+          i.LeerArchivo();
     }
 }

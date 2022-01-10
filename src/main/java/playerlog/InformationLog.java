@@ -16,6 +16,14 @@ import model.players.Player;
  */
 public class InformationLog {
     private static String PATH = "src/main/resources/logs/players.txt";
+    private static ArrayList<Player> lista = new ArrayList<>();
+
+    public static ArrayList<Player> getLista() {
+        return lista;
+    }
+
+    public InformationLog() {
+    }
     
     
     public static void createPlayerLog(Player player) {
@@ -30,11 +38,11 @@ public class InformationLog {
             System.out.println("Uh oh, something went wrong :(");
         }
     }
-    public static void LeerArchivo(){
-        try(BufferedReader lector = new BufferedReader(new FileReader(PATH))){
+    public void LeerArchivo(){
+        try(BufferedReader lector = new BufferedReader(new FileReader("src/main/resources/logs/players.txt"))){
             String linea = "";
             lector.readLine();
-            ArrayList<Player> lista = new ArrayList<>();
+//            ArrayList<Player> lista = new ArrayList<>();
             while((linea = lector.readLine())!=null){
                 String[] datos = linea.split(",");
                 String nombre = datos[0];
