@@ -159,7 +159,7 @@ public class SingleplayerGameController {
     public void tablerosIntermedios(){
         for(Minimax t : tree.getRoot().getChildren()){
             Grid g = t.getRoot().getContent().copy(100, 100);
-            setImages(g);
+            setIconos(g);
             fx_tableros_intermedios.getChildren().add(g);
         }
     }
@@ -173,6 +173,17 @@ public class SingleplayerGameController {
             }
         }
     }
+    
+    public void setIconos(Grid g){
+        for(ArrayList<Cell> a : g.getGrid()){
+            for(Cell c : a){
+                if(c.getSymbol() != null){
+                    c.setIcon();
+                }
+            }
+        }
+    }
+            
     public void aiMove(){
         tree();
         //borderPane.getChildren().clear();

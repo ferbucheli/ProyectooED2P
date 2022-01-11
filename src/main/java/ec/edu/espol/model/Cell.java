@@ -4,6 +4,7 @@ import game.Symbol;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -49,6 +50,16 @@ public class Cell extends StackPane{
             imv.setFitWidth(ancho - 50);
             imv.setFitHeight(alto - 50);
             this.getChildren().add(imv);
+        } 
+    }
+    
+    public void setIcon(){
+        if(this.symbol.equals(Symbol.X)){
+            Text txt = new Text("X");
+            this.getChildren().add(txt);
+        } else{
+            Text txt = new Text("O");
+            this.getChildren().add(txt);
         } 
     }
 

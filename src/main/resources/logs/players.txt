@@ -8,3 +8,5 @@ Boo,3
 Aaa,0
 Dex,1
 Vex,1
+fer,0
+fer,3
