@@ -12,4 +12,8 @@ public class MainMenuController {
     void switchToGameSelection(ActionEvent event) {
         App.switchScenes(event, "GameSelection", 820, 470);
     }
+    @FXML
+    void switchToRanking(ActionEvent event) {
+        App.switchScenes(event, "Ranking", 600, 400);
+    }
 }

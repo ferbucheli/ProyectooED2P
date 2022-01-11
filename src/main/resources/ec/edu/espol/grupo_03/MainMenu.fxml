@@ -5,10 +5,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.MainMenuController">
+<VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.MainMenuController">
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -23,9 +24,33 @@
             <Insets bottom="15.0" />
          </padding>
       </Label>
-      <Button mnemonicParsing="false" onAction="#switchToGameSelection" prefHeight="53.0" prefWidth="113.0" style="-fx-background-color: #1C4D4D;" text="JUGAR!" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="16.0" />
-         </font></Button>
+      <AnchorPane prefHeight="74.0" prefWidth="600.0">
+         <children>
+            <Button layoutX="131.0" layoutY="12.0" mnemonicParsing="false" onAction="#switchToGameSelection" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: #1C4D4D;" text="JUGAR!" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/joystick.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button layoutX="329.0" layoutY="12.0" mnemonicParsing="false" onAction="#switchToRanking" prefHeight="50.0" prefWidth="135.0" style="-fx-background-color: #1C4D4D;" text="Ranking" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="29.0" fitWidth="44.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../../images/ranking.jpg" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </AnchorPane>
    </children>
 </VBox>

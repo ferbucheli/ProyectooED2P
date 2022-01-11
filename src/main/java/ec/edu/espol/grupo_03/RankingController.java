@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -23,6 +24,11 @@ public class RankingController implements Initializable {
 
     @FXML
     private TableColumn<Player, Integer> wins;
+    
+    @FXML
+    void switchToMainMenu(ActionEvent event) {
+        App.switchScenes(event, "MainMenu", 600, 400);
+    }
     
    InformationLog log = new InformationLog();
     @Override
