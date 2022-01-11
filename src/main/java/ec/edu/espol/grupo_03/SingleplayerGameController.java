@@ -81,6 +81,7 @@ public class SingleplayerGameController {
         setGrid();
         setCellEvent();
         whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
+        tablerosIntermedios();
     }
     
     /*Pone la informacion de los jugadores en la parte grafica*/
@@ -146,13 +147,15 @@ public class SingleplayerGameController {
     }
     
     public void tablerosIntermedios(){
-        
-        fx_tableros_intermedios.getChildren().add(tree.getRoot().getChildren().get(0).getRoot().getContent());
-
+        for(Minimax t : tree.getRoot().getChildren()){
+            Grid g = t.getRoot().getContent().copy(100, 100);
+            setImages(g);
+            fx_tableros_intermedios.getChildren().add(g);
+        }
     }
     
-    public void setImages(){
-        for(ArrayList<Cell> a : this.tablero.getGrid()){
+    public void setImages(Grid g){
+        for(ArrayList<Cell> a : g.getGrid()){
             for(Cell c : a){
                 if(c.getSymbol() != null){
                     c.setImage();
@@ -166,7 +169,7 @@ public class SingleplayerGameController {
         tree.minimax(true, currentPlayer);
         tablero = tree.minimax();
         setCellEvent();
-        setImages();
+        setImages(tablero);
         borderPane.setCenter(tablero);
         changeTurn();
     }
