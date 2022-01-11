@@ -1,2 +1,10 @@
-Eduardo,10
-Eduardo,10
+n,3
+nn,1
+mm,2
+Nicolas,2
+Jorge,4
+Goku,6
+Boo,3
+Aaa,0
+Dex,1
+Vex,1

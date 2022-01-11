@@ -1,11 +1,13 @@
 package ec.edu.espol.grupo_03;
 
 
+import alerts.GameAlert;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import game.Symbol;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -72,15 +74,19 @@ public class MultiplayerOptionsController {
         if(cb_player1_is_first.isSelected())
             isLocalFirst = true;
         
-        if(nameLocalLabel.getText() != null){
+        if(nameLocalLabel.getText() != null && nameVisitorLabel.getText() != null 
+                && !(nameVisitorLabel.getText().equals("") || nameLocalLabel.getText().equals("")) ){
+            
             localPlayerName = nameLocalLabel.getText();
-        }
-        
-        if(nameVisitorLabel.getText() != null){
             visitorPlayerName = nameVisitorLabel.getText();
+            
+            App.switchScenes(event, "MultiplayerGame", 1080, 700);
+        } else {
+            GameAlert.mostrarAlerta(Alert.AlertType.ERROR,  "Completa todos los campos!");
         }
+
         
         
-        App.switchScenes(event, "MultiplayerGame", 1080, 700);
+        
     }
 }

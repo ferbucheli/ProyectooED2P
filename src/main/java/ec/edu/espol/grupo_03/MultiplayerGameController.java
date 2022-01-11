@@ -1,5 +1,6 @@
 package ec.edu.espol.grupo_03;
 
+import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
 import game.Symbol;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import model.players.Player;
+import playerlog.InformationLog;
 import validation.GameValidator;
 
 /**
@@ -70,6 +73,7 @@ public class MultiplayerGameController {
     
     @FXML
     void switchToMainMenu(ActionEvent event) {
+        generateLog();
         App.switchScenes(event, "MainMenu", 600, 400);
     }
     
@@ -131,16 +135,18 @@ public class MultiplayerGameController {
             for(Cell c : l){
                 c.setOnMouseClicked(e -> {
                     if(e.getButton() == MouseButton.PRIMARY){
+                        
                         if(c.getSymbol() == null){
                             c.setSymbol(this.currentPlayer.getPlayerSymbol());
+                            /*Se pone el simbolo y luego se hacen las validaciones*/
+                            c.setImage();
                             verifyGameStatus();
-                            
                             changeTurn();
                         } else {
-                            //throws alert
+                            GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Ya se encuentra una ficha en este lugar");
                         }
                     }
-                    c.setImage();
+                    
                 });
             }
         }
@@ -208,13 +214,14 @@ public class MultiplayerGameController {
         }
     }
     
+    /*Metodo que permite el cambio del jugador*/
     public void changeTurn(){
         if(currentPlayer.equals(localPlayer)){
             currentPlayer = visitorPlayer;
-            updateCurrentSymbolImage();
+            updateCurrentSymbolImage();  /*Actualiza la imagen que se encuentra en el centro*/
         } else{
             currentPlayer = localPlayer;
-            updateCurrentSymbolImage();
+            updateCurrentSymbolImage(); /*Actualiza la imagen que se encuentra en el centro*/
         }
     }
     
@@ -225,16 +232,52 @@ public class MultiplayerGameController {
     }
     
     private void verifyGameStatus(){
-        if(GameValidator.gameValidation(tablero)>0){
+        int status = GameValidator.gameValidation(tablero);
+        if(status > 0){
             System.out.println("Se ha acabado el juego");
             Symbol winnerSymbol = GameValidator.getWinner();
             
-            if(winnerSymbol.equals(localPlayer.getPlayerSymbol())){
-                System.out.println("Ha ganado " + localPlayer.getName());
-            } else {
+            if(status == 1 && winnerSymbol.equals(localPlayer.getPlayerSymbol()) ){
+                
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + localPlayer.getName());
+                /*Actualizacion de puntaje*/
+                int currentWins = localPlayer.getWins() + 1;
+                localPlayer.setWins(currentWins);
+                
+            } else if (status == 1) {
                 System.out.println("Ha ganado " + visitorPlayer.getName());
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + visitorPlayer.getName());
+                
+                 /*Actualizacion de puntaje*/
+                int currentWins = visitorPlayer.getWins() + 1;
+                visitorPlayer.setWins(currentWins);
+            } if (status == 2){
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Han quedado empate");
             }
+            /*En caso de que WIN o TIE*/
+            updateUIPlayersWins(); /*Se actualiza el puntaje*/
+            resetGame();           /*Se actualiza el tablero*/
         }
     }
+    
+    /*Se actualiza la UI que contiene los puntajes*/
+    private void updateUIPlayersWins(){
+        localPointsLabel.setText(String.valueOf(localPlayer.getWins()));
+        visitorPointsLabel.setText(String.valueOf(visitorPlayer.getWins()));
+    }
+    
+    /*Vuelve a cargar todos los datos*/
+    private void resetGame(){
+        setGrid();
+        setCellEvent();
+    }
+    
+    private void generateLog(){
+        InformationLog.createPlayerLog(localPlayer);
+        InformationLog.createPlayerLog(visitorPlayer);
+        System.out.println("Se ha generado PlayerLog correctamente");
+    }
+    
+    
     
 }

@@ -7,7 +7,7 @@ import game.Symbol;
  * @author Fernando
  */
 
-public class Player {
+public class Player implements Comparable<Player> {
     
     private final String name;
     private Symbol playerSymbol;
@@ -20,6 +20,13 @@ public class Player {
     public void setWins(int wins) {
         this.wins = wins;
     }
+
+    public Player(String name, int wins) {
+        this.name = name;
+        this.wins = wins;
+    }
+    
+    
 
     public Player(String name, Symbol playerSymbol) {
         this.name = name;
@@ -55,6 +62,16 @@ public class Player {
             return Symbol.X;
     }
 
-    
+    @Override
+    public int compareTo(Player p) {
+        if(wins < p.wins) return -1;
+        if(wins > p.wins) return 1;
+        return 0;
+    }   
+
+    @Override
+    public String toString() {
+        return "Nombre = " + name + "\tpuntaje = " + wins;
+    }
     
 }

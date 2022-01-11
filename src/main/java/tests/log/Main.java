@@ -10,8 +10,10 @@ import playerlog.InformationLog;
  */
 public class Main {
     public static void main(String[] args) {
-        Player player = new Player("Eduardo", Symbol.X);
-        player.setWins(10);
-        InformationLog.createPlayerLog(player);
+//        Player player = new Player("Eduardo", Symbol.X);
+//        player.setWins(10);
+//        InformationLog.createPlayerLog(player);  
+          InformationLog i = new InformationLog();
+          i.LeerArchivo();
     }
 }
