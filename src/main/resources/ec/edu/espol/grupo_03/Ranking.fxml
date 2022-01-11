@@ -12,8 +12,8 @@
    <children>
       <TableView fx:id="table" layoutX="168.0" layoutY="87.0" prefHeight="298.0" prefWidth="263.0">
         <columns>
-          <TableColumn fx:id="nombre" prefWidth="137.5999755859375" text="Nombre" />
-          <TableColumn fx:id="puntaje" prefWidth="125.60003662109375" text="Puntaje" />
+          <TableColumn fx:id="name" prefWidth="137.5999755859375" text="Nombre" />
+          <TableColumn fx:id="wins" prefWidth="125.60003662109375" text="Puntaje" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="213.0" layoutY="14.0" prefHeight="50.0" prefWidth="173.0" style="-fx-background-color: #1C4D4D;" text="Ranking" textAlignment="CENTER" textFill="WHITE">
