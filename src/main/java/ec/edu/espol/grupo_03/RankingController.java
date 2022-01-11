@@ -3,6 +3,8 @@ package ec.edu.espol.grupo_03;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import model.players.Player;
 import playerlog.InformationLog;
 
@@ -37,8 +38,8 @@ public class RankingController implements Initializable {
         log.LeerArchivo();
         ArrayList listaF = new ArrayList<>(InformationLog.getLista()); 
         ObservableList<Player> lista = FXCollections.observableArrayList(listaF);
-        name.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
-        wins.setCellValueFactory(new PropertyValueFactory<Player, Integer>("wins"));
+        name.setCellValueFactory(cellData -> new ReadOnlyStringWrapper(cellData.getValue().getName()));
+        wins.setCellValueFactory((cellData -> new ReadOnlyObjectWrapper(cellData.getValue().getWins())));
         table.setItems(lista);
     }
 
