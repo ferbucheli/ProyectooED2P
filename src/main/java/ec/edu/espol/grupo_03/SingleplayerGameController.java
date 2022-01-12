@@ -5,6 +5,8 @@ import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
 import ec.edu.espol.model.Minimax;
 import game.Symbol;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -80,14 +83,35 @@ public class SingleplayerGameController {
         setUpGame();
     }
     
+        private void loadPlayerImage(){
+        String xPath = "src/main/resources/images/x1.png";
+        String oPath = "src/main/resources/images/o.png";
     
+        if(humanPlayer.getPlayerSymbol().equals(Symbol.X)){
+            try(FileInputStream input = new FileInputStream(xPath)){
+                Image img = new Image(input, 50, 50, false, false);
+                playerImageSymbol.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ xPath +" image not found");
+            }
+        } else {
+            try(FileInputStream input = new FileInputStream(oPath)){
+                Image img = new Image(input, 50, 50, false, false);
+                playerImageSymbol.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ oPath +" image not found");
+            }
+            
+        }
+    }
     public void setUpGame(){
         setUpPlayers();
         updateUIPlayerInformation();
         setGrid();
         setCellEvent();
         whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
-//        tablerosIntermedios();
+        loadPlayerImage();
+//      tablerosIntermedios();
     }
     
     /*Pone la informacion de los jugadores en la parte grafica*/
@@ -143,7 +167,6 @@ public class SingleplayerGameController {
             currentPlayer = humanPlayer;
         }
     }
-    
     
     /*Metodo que ayuda al jugador a escoger el siguiente movimiento con el tablero actual*/
     @FXML

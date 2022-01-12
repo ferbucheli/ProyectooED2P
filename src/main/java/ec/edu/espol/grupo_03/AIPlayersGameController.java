@@ -5,11 +5,15 @@ import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
 import ec.edu.espol.model.Minimax;
 import game.Symbol;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -48,8 +52,9 @@ public class AIPlayersGameController {
     @FXML
     private Label visitorPointsLabel;
     
-    
-    
+    @FXML
+    private ImageView symbolTurnImage;
+
     @FXML
     void switchToMainMenu(ActionEvent event) {
         App.switchScenes(event, "MainMenu", 600, 400);
@@ -83,6 +88,7 @@ public class AIPlayersGameController {
         borderPane.setCenter(tablero);
         verifyGameStatus();
         changeTurn();
+        updateCurrentSymbolImage();
         verifyGameStatus();
     }
     
@@ -122,8 +128,32 @@ public class AIPlayersGameController {
         } else {
             currentPlayer = visitorPlayer;
         }
+        updateCurrentSymbolImage();
     }
-    
+        /*Actualiza la imagen que se encuentra en la parte superior dependiendo del turno*/
+    private void updateCurrentSymbolImage(){
+        String xPath = "src/main/resources/images/x1.png";
+        String oPath = "src/main/resources/images/o.png";
+        
+        
+        if(currentPlayer.getPlayerSymbol().equals(Symbol.X)){
+            try(FileInputStream input = new FileInputStream(xPath)){
+                Image img = new Image(input, 70, 70, false, false);
+                symbolTurnImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ xPath +" image not found");
+            }
+        } else {
+            
+            try(FileInputStream input = new FileInputStream(oPath)){
+                Image img = new Image(input, 70, 70, false, false);
+                symbolTurnImage.setImage(img);
+            } catch (IOException ioe){
+                System.out.println("Error "+ oPath +" image not found");
+            }
+        }
+
+    }
     public void setGrid(){
         tablero = new Grid(3, 3, 300, 300);
         tablero.generateGrid();
@@ -135,20 +165,20 @@ public class AIPlayersGameController {
             System.out.println("Se ha acabado el juego");
             Symbol winnerSymbol = GameValidator.getWinner();
             
-            if(status == 1 && winnerSymbol.equals(localPlayer.getPlayerSymbol()) ){
+            if(status == 1 && winnerSymbol.equals(visitorPlayer.getPlayerSymbol()) ){
                 
-                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + localPlayer.getName());
-                /*Actualizacion de puntaje*/
-                int currentWins = localPlayer.getWins() + 1;
-                localPlayer.setWins(currentWins);
-                
-            } else if (status == 1) {
-                System.out.println("Ha ganado " + visitorPlayer.getName());
                 GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + visitorPlayer.getName());
-                
-                 /*Actualizacion de puntaje*/
+                /*Actualizacion de puntaje*/
                 int currentWins = visitorPlayer.getWins() + 1;
                 visitorPlayer.setWins(currentWins);
+                
+            } else if (status == 1) {
+                System.out.println("Ha ganado " + localPlayer.getName());
+                GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + localPlayer.getName());
+                
+                 /*Actualizacion de puntaje*/
+                int currentWins = localPlayer.getWins() + 1;
+                localPlayer.setWins(currentWins);
             } if (status == 2){
                 GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Han quedado empate");
             }

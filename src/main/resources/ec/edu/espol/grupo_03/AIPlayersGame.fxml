@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.AIPlayersGameController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1080.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.AIPlayersGameController">
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
@@ -47,7 +47,7 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <HBox alignment="CENTER" prefHeight="56.0" prefWidth="1080.0">
+            <HBox fx:id="visitorSymbolImage" alignment="CENTER" prefHeight="56.0" prefWidth="1080.0">
                <children>
                   <Label fx:id="localNameLabel" textFill="WHITE">
                      <font>
@@ -94,7 +94,7 @@
                         <Font name="Arial" size="20.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="68.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="symbolTurnImage" fitHeight="68.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../../images/0.png" />
                      </image>
