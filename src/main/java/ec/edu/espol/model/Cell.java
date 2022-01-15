@@ -28,8 +28,8 @@ public class Cell extends StackPane{
     public void setLayout(int width, int height, int f, int c){
         ancho = width/ c;
         alto = height / f;
-        double x = ancho * fila;
-        double y = alto * columna;
+        double y = ancho * fila;
+        double x = alto * columna;
         setLayoutX(x);
         setLayoutY(y);
         setPrefWidth(ancho);
