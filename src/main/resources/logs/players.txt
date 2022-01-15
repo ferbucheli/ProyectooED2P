@@ -10,3 +10,14 @@ Dex,1
 Vex,1
 fer,0
 fer,3
+fer,3
+fer,0
+fer,0
+fer,0
+fer,0
+fer,1
+fer,0
+fer,1
+fer,2
+fer,2
+fer,0

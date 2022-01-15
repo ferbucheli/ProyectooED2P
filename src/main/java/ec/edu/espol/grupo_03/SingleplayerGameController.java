@@ -3,7 +3,7 @@ package ec.edu.espol.grupo_03;
 import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
-import ec.edu.espol.model.Minimax;
+import ec.edu.espol.model.MinimaxTree;
 import game.Symbol;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -33,7 +33,7 @@ public class SingleplayerGameController {
     
     
     private Grid tablero;
-    private Minimax tree;
+    private MinimaxTree tree;
     private boolean isGameOver;
     
     private Player humanPlayer;
@@ -107,11 +107,11 @@ public class SingleplayerGameController {
     public void setUpGame(){
         setUpPlayers();
         updateUIPlayerInformation();
+        loadPlayerImage();        
         setGrid();
         setCellEvent();
+        //tablerosIntermedios();
         whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
-        loadPlayerImage();
-//      tablerosIntermedios();
     }
     
     /*Pone la informacion de los jugadores en la parte grafica*/
@@ -148,6 +148,7 @@ public class SingleplayerGameController {
                             verifyGameStatus();
                             changeTurn();
                             verifyGameStatus();
+                            System.out.println(tablero.imprimirTablero());
                         } else {
                             GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Ya se encuentra una ficha en este lugar");
                         }
@@ -156,6 +157,7 @@ public class SingleplayerGameController {
             }
         }
     }
+
     
     
     /*Cambio de simbolo dependiendo del jugador que se encuentre en Current*/
@@ -171,16 +173,20 @@ public class SingleplayerGameController {
     /*Metodo que ayuda al jugador a escoger el siguiente movimiento con el tablero actual*/
     @FXML
     void helpPlayer(ActionEvent event) {
-        System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
+        //System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
+        tree();
+        tree.minimax(true, currentPlayer);
+        tablerosIntermedios();
     }
     
     public void tree(){
-        tree = new Minimax(tablero);
+        tree = new MinimaxTree(tablero);
         tree.generateTree(currentPlayer);
     }
     
     public void tablerosIntermedios(){
-        for(Minimax t : tree.getRoot().getChildren()){
+        this.fx_tableros_intermedios.getChildren().clear();
+        for(MinimaxTree t : tree.getRoot().getChildren()){
             Grid g = t.getRoot().getContent().copy(100, 100);
             setIconos(g);
             fx_tableros_intermedios.getChildren().add(g);
@@ -215,6 +221,7 @@ public class SingleplayerGameController {
         setCellEvent();
         setImages(tablero);
         borderPane.setCenter(tablero);
+        System.out.println(tablero.imprimirTablero());
         changeTurn();
     }
     

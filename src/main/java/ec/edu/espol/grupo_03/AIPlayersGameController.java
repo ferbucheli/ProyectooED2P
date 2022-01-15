@@ -3,7 +3,7 @@ package ec.edu.espol.grupo_03;
 import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
-import ec.edu.espol.model.Minimax;
+import ec.edu.espol.model.MinimaxTree;
 import game.Symbol;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -29,7 +29,7 @@ public class AIPlayersGameController {
     private boolean isGameOver;
     private Grid tablero;
     private int turns = 0;
-    private Minimax tree;
+    private MinimaxTree tree;
     private Player localPlayer;
     private Player visitorPlayer;
     private Player currentPlayer;  
@@ -73,7 +73,7 @@ public class AIPlayersGameController {
     }
         
     public void tree(){
-        tree = new Minimax(tablero);
+        tree = new MinimaxTree(tablero);
         tree.generateTree(currentPlayer);
     }
     

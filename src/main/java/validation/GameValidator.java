@@ -107,6 +107,8 @@ public class GameValidator {
             System.out.print("Ha ganado diagonal: ");
             System.out.println(diagonalValidation(tablero));
             winner = diagonalValidation(tablero);
+            tablero.setWonBy(winner);
+            tablero.setState(true);
             return 1;
         }
         
@@ -114,6 +116,8 @@ public class GameValidator {
             System.out.print("Ha ganado horizontal: ");
             System.out.println(horizontalValidation(tablero));
             winner = horizontalValidation(tablero);
+            tablero.setWonBy(winner);
+            tablero.setState(true);
             return 1;
         }
         
@@ -121,6 +125,8 @@ public class GameValidator {
             System.out.print("Ha ganado vertical: ");
             System.out.println(verticalValidation(tablero));
             winner = verticalValidation(tablero);
+            tablero.setWonBy(winner);
+            tablero.setState(true);
             return 1;
         }   
         

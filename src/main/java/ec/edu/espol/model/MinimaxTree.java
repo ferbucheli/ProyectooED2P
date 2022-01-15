@@ -9,21 +9,22 @@ import game.Symbol;
 import java.util.ArrayList;
 import model.players.Player;
 import model.tree.Tree;
+import validation.GameValidator;
 
 /**
  *
  * @author Fernando
  */
-public class Minimax {
+public class MinimaxTree {
     
-    private MinimaxNode<Grid> root;
+    private MinimaxTreeNode<Grid> root;
 
-    public Minimax(Grid content){
-        this.root = new MinimaxNode<Grid>(content);
+    public MinimaxTree(Grid content){
+        this.root = new MinimaxTreeNode<Grid>(content);
     }
     
     
-    public void setRoot(MinimaxNode<Grid> root){
+    public void setRoot(MinimaxTreeNode<Grid> root){
         this.root = root;
     }
     
@@ -31,12 +32,12 @@ public class Minimax {
         return this.root.getChildren().isEmpty();
     }
     
-    public MinimaxNode<Grid> getRoot(){
+    public MinimaxTreeNode<Grid> getRoot(){
         return root;
     }
     
     public void insert(Grid element){
-        this.root.getChildren().add(new Minimax(element));
+        this.root.getChildren().add(new MinimaxTree(element));
     }
     
     public void insertChilds(ArrayList<Grid> grids){
@@ -48,7 +49,7 @@ public class Minimax {
     public void generateTree(Player p){
         ArrayList<Grid> grids = this.root.getContent().generateMoves(p.getPlayerSymbol());
         insertChilds(grids);
-        for(Minimax t : this.root.getChildren()){
+        for(MinimaxTree t : this.root.getChildren()){
             ArrayList<Grid> grids2 = t.root.getContent().generateMoves(p.getOppoenentSymbol());
             t.insertChilds(grids2);
         }
@@ -56,9 +57,10 @@ public class Minimax {
     
     public Grid minimax(){
         Grid result = new Grid();
-        result.setUtility(-1);
+        result.setUtility(-1000000);
         
-        for(Minimax m : this.root.getChildren()){
+        for(MinimaxTree m : this.root.getChildren()){
+            //System.out.println(m.getRoot().getContent().getUtility());
             if(m.getRoot().getContent().compareTo(result) > 0)
                 result = m.getRoot().getContent();
         }
@@ -69,26 +71,30 @@ public class Minimax {
     
     public int minimax(boolean maxPlayer, Player player){
         if(this.isLeaf()){
-            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol());
+            if(GameValidator.gameValidation(this.root.getContent()) == 1){
+                if(this.root.getContent().getWonBy().equals(player.getOppoenentSymbol()))
+                    return -1000;
+            }
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
         }
         if(maxPlayer){
             int maxEval = -10000;
-            for(Minimax t : this.root.getChildren()){
+            for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(false, player);
+                t.root.getContent().setUtility(eval);
                 if(maxEval < eval){
-                    t.root.getContent().setUtility(eval);
                     maxEval = eval;
                 }
             }
             return maxEval;
         } else {
             int minEval = 10000;
-            for(Minimax t : this.root.getChildren()){
+            for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(true, player);
-                if(minEval > eval){
+                t.root.getContent().setUtility(eval);
+                if(minEval > eval || t.getRoot().getContent().getWonBy().equals(player.getPlayerSymbol())){
                     minEval = eval;
-                    t.root.getContent().setUtility(eval);
                 }
             }
             return minEval;
