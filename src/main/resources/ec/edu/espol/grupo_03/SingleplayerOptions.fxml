@@ -4,14 +4,16 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerOptionsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerOptionsController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -75,13 +77,48 @@
             </Label>
          </children>
       </HBox>
-      <HBox alignment="CENTER" prefHeight="36.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0">
          <children>
-            <Label prefHeight="31.0" prefWidth="229.0" text="Yo inicio Partida:   " textFill="WHITE">
+            <Label prefHeight="41.0" prefWidth="206.0" text="Yo inicio Partida:   " textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font></Label>
             <CheckBox fx:id="checkbox_is_first" mnemonicParsing="false" />
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="600.0">
+         <children>
+            <Label prefHeight="35.0" prefWidth="178.0" text="Modo Extremo:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </Label>
+            <CheckBox fx:id="checkbox_maxMode" mnemonicParsing="false">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+            </CheckBox>
+            <Label prefHeight="35.0" prefWidth="116.0" text="Dificultad:" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </Label>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0">
+               <children>
+                  <RadioButton fx:id="rbFacil" mnemonicParsing="false" onAction="#facilSelected" text="Facil" textFill="WHITE">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="dificultad" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="rbDificil" mnemonicParsing="false" onAction="#dificilSelected" text="Dificil" textFill="WHITE" toggleGroup="$dificultad" />
+               </children>
+            </VBox>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">

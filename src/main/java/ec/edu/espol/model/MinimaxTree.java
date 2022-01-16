@@ -73,7 +73,7 @@ public class MinimaxTree {
         if(this.isLeaf()){
             if(GameValidator.gameValidation(this.root.getContent()) == 1){
                 if(this.root.getContent().getWonBy().equals(player.getOppoenentSymbol()))
-                    return -1000;
+                    return Grid.LOSS;
             }
             this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
@@ -82,6 +82,11 @@ public class MinimaxTree {
             int maxEval = -10000;
             for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(false, player);
+                GameValidator.gameValidation(this.root.getContent());
+//                if(t.root.getContent().getWonBy().equals(player.getPlayerSymbol()))
+//                    t.root.getContent().setUtility(Grid.WON);
+//                else
+//                    t.root.getContent().setUtility(eval);
                 t.root.getContent().setUtility(eval);
                 if(maxEval < eval){
                     maxEval = eval;
@@ -93,11 +98,42 @@ public class MinimaxTree {
             for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(true, player);
                 t.root.getContent().setUtility(eval);
+                GameValidator.gameValidation(this.root.getContent());
                 if(minEval > eval || t.getRoot().getContent().getWonBy().equals(player.getPlayerSymbol())){
                     minEval = eval;
                 }
             }
             return minEval;
         }
-    }   
+    }
+    
+    
+    public int minimaxEasy(boolean maxPlayer, Player player){
+        if(this.isLeaf()){
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
+            return this.root.getContent().getUtility();
+        }
+        if(maxPlayer){
+            int maxEval = -10000;
+            for(MinimaxTree t : this.root.getChildren()){
+                int eval = t.minimax(false, player);
+
+                t.root.getContent().setUtility(eval);
+                if(maxEval < eval){
+                    maxEval = eval;
+                }
+            }
+            return maxEval;
+        } else {
+            int minEval = 10000;
+            for(MinimaxTree t : this.root.getChildren()){
+                int eval = t.minimax(true, player);
+                t.root.getContent().setUtility(eval);
+                if(minEval > eval){
+                    minEval = eval;
+                }
+            }
+            return minEval;
+        }
+    }  
 }
