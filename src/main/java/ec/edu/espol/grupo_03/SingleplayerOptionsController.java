@@ -45,7 +45,7 @@ public class SingleplayerOptionsController {
             App.switchScenes(event, "SingleplayerGame", 1100, 830);
         } else {
             GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Completa todos los campos!");
-        }
+        } 
         
         
         

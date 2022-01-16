@@ -34,7 +34,7 @@ public class Cell extends StackPane{
         setLayoutY(y);
         setPrefWidth(ancho);
         setPrefHeight(alto);
-        setStyle("-fx-background-color: white; -fx-border-color: black;  -fx-border: 20px solid; -fx-background-radius: 15.0;");
+        setStyle("-fx-background-color: white; -fx-border-color: black;  -fx-border: 20px solid;");
     }
     
     public void setImage(){

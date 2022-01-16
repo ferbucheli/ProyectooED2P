@@ -55,7 +55,7 @@ public class Player implements Comparable<Player> {
         this.playerSymbol = playerSymbol;
     }
     
-    public Symbol getOppoenentSymbol(){
+    public Symbol getOpponentSymbol(){
         if(this.playerSymbol.equals(Symbol.X))
             return Symbol.O;
         else

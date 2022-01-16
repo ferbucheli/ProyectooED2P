@@ -45,7 +45,7 @@ public class MinimaxTree {
         ArrayList<Grid> grids = this.root.getContent().generateMoves(p.getPlayerSymbol());
         insertChilds(grids);
         for(MinimaxTree t : this.root.getChildren()){
-            ArrayList<Grid> grids2 = t.root.getContent().generateMoves(p.getOppoenentSymbol());
+            ArrayList<Grid> grids2 = t.root.getContent().generateMoves(p.getOpponentSymbol());
             t.insertChilds(grids2);
         }
     }
@@ -67,14 +67,14 @@ public class MinimaxTree {
         if(this.isLeaf()){
             
             if(GameValidator.gameValidation(this.root.getContent()) == 1){
-                if(this.root.getContent().getWonBy().equals(player.getOppoenentSymbol()))
+                if(this.root.getContent().getWonBy().equals(player.getOpponentSymbol()))
                     return -1000;
             }
-            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOpponentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
             
             /* NO BORRAR
-            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol());
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOpponentSymbol());
             return this.root.getContent().getUtility();
             */
             
@@ -94,7 +94,7 @@ public class MinimaxTree {
             for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(true, player);
                 t.root.getContent().setUtility(eval);
-                if(minEval > eval){
+                if(minEval > eval || t.getRoot().getContent().getWonBy().equals(player.getOpponentSymbol())){
                     minEval = eval;
                 }
             }
