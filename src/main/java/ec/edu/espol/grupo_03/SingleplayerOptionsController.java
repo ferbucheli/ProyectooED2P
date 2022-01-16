@@ -54,7 +54,7 @@ public class SingleplayerOptionsController {
 //        if(checkbox_maxMode.isSelected())
 //            isXtreme = true;
         
-        if(namefield.getText() != null && !namefield.getText().equals("")){
+        if(namefield.getText() != null && !namefield.getText().equals("") && (rbFacil.isSelected() || rbDificil.isSelected())){
             humanName = namefield.getText();
             App.switchScenes(event, "SingleplayerGame", 1100, 830);
         } else {

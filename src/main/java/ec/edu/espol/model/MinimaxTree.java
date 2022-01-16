@@ -113,7 +113,7 @@ public class MinimaxTree {
             this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
         }
-        if(maxPlayer){
+        if(!maxPlayer){
             int maxEval = -10000;
             for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(false, player);

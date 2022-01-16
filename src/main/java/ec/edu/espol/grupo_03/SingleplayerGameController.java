@@ -127,7 +127,7 @@ public class SingleplayerGameController {
     /*Pone la informacion de los jugadores en la parte grafica*/
     public void updateUIPlayerInformation(){
         isXtreme = SingleplayerOptionsController.isXtreme;
-        //difficulty = SingleplayerOptionsController.difficulty;
+        difficulty = SingleplayerOptionsController.difficulty;
         playerLabel.setText(humanPlayer.getName());
         playerPointsLabel.setText(String.valueOf(humanPlayer.getWins()));
         aiPointsLabel.setText(String.valueOf(AIplayer.getWins()));
@@ -245,7 +245,10 @@ public class SingleplayerGameController {
     public void aiMove(){
         tree();
         //borderPane.getChildren().clear();
-        tree.minimax(true, currentPlayer);
+        if(this.difficulty.equals("DIFICIL"))
+            tree.minimax(true, currentPlayer);
+        else
+            tree.minimaxEasy(true, currentPlayer);
         tablero = tree.minimax();
         setCellEvent();
         setImages(tablero);
