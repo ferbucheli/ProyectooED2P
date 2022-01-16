@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.model;
 
 import game.Symbol;
@@ -50,7 +45,7 @@ public class MinimaxTree {
         ArrayList<Grid> grids = this.root.getContent().generateMoves(p.getPlayerSymbol());
         insertChilds(grids);
         for(MinimaxTree t : this.root.getChildren()){
-            ArrayList<Grid> grids2 = t.root.getContent().generateMoves(p.getOppoenentSymbol());
+            ArrayList<Grid> grids2 = t.root.getContent().generateMoves(p.getOpponentSymbol());
             t.insertChilds(grids2);
         }
     }
@@ -59,8 +54,7 @@ public class MinimaxTree {
         Grid result = new Grid();
         result.setUtility(-1000000);
         
-        for(MinimaxTree m : this.root.getChildren()){
-            //System.out.println(m.getRoot().getContent().getUtility());
+        for(MinimaxTree m : this.root.getChildren()){         
             if(m.getRoot().getContent().compareTo(result) > 0)
                 result = m.getRoot().getContent();
         }
@@ -71,12 +65,19 @@ public class MinimaxTree {
     
     public int minimax(boolean maxPlayer, Player player){
         if(this.isLeaf()){
+            
             if(GameValidator.gameValidation(this.root.getContent()) == 1){
-                if(this.root.getContent().getWonBy().equals(player.getOppoenentSymbol()))
+                if(this.root.getContent().getWonBy().equals(player.getOpponentSymbol()))
                     return Grid.LOSS;
             }
-            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOpponentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
+            
+            /* NO BORRAR
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOpponentSymbol());
+            return this.root.getContent().getUtility();
+            */
+            
         }
         if(maxPlayer){
             int maxEval = -10000;
@@ -110,7 +111,7 @@ public class MinimaxTree {
     
     public int minimaxEasy(boolean maxPlayer, Player player){
         if(this.isLeaf()){
-            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOpponentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
         }
         if(!maxPlayer){

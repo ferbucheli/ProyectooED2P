@@ -193,9 +193,6 @@ public class Grid extends Pane implements Comparable<Grid>{
                     Grid result = this.copy(300, 300);
                     Cell cell = result.grid.get(f).get(c);
                     cell.setSymbol(s);
-                    //cell.setImage();
-                    //result.grid.get(f).add(c, cell);
-                    //result.getChildren().add(cell);
                     output.add(result);
                 }
             }
@@ -230,7 +227,6 @@ public class Grid extends Pane implements Comparable<Grid>{
         sb.append("]");
         return sb.toString();
     }
-
     
     public void showTablero(){
         for(ArrayList<Cell> l :grid){
