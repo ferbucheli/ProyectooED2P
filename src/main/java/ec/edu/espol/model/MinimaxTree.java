@@ -73,7 +73,7 @@ public class MinimaxTree {
             this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
             
-            /*
+            /* NO BORRAR
             this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol());
             return this.root.getContent().getUtility();
             */
