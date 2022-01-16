@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ec.edu.espol.model;
 
 import game.Symbol;
@@ -59,8 +54,7 @@ public class MinimaxTree {
         Grid result = new Grid();
         result.setUtility(-1000000);
         
-        for(MinimaxTree m : this.root.getChildren()){
-            //System.out.println(m.getRoot().getContent().getUtility());
+        for(MinimaxTree m : this.root.getChildren()){         
             if(m.getRoot().getContent().compareTo(result) > 0)
                 result = m.getRoot().getContent();
         }
@@ -71,12 +65,19 @@ public class MinimaxTree {
     
     public int minimax(boolean maxPlayer, Player player){
         if(this.isLeaf()){
+            
             if(GameValidator.gameValidation(this.root.getContent()) == 1){
                 if(this.root.getContent().getWonBy().equals(player.getOppoenentSymbol()))
                     return -1000;
             }
             this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol()); // player.getOpponentSymbol()
             return this.root.getContent().getUtility();
+            
+            /*
+            this.root.getContent().generateUtility(player.getPlayerSymbol(), player.getOppoenentSymbol());
+            return this.root.getContent().getUtility();
+            */
+            
         }
         if(maxPlayer){
             int maxEval = -10000;
@@ -93,7 +94,7 @@ public class MinimaxTree {
             for(MinimaxTree t : this.root.getChildren()){
                 int eval = t.minimax(true, player);
                 t.root.getContent().setUtility(eval);
-                if(minEval > eval || t.getRoot().getContent().getWonBy().equals(player.getPlayerSymbol())){
+                if(minEval > eval){
                     minEval = eval;
                 }
             }
