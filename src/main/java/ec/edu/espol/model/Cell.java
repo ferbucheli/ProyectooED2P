@@ -28,13 +28,13 @@ public class Cell extends StackPane{
     public void setLayout(int width, int height, int f, int c){
         ancho = width/ c;
         alto = height / f;
-        double x = ancho * fila;
-        double y = alto * columna;
+        double y = ancho * fila;
+        double x = alto * columna;
         setLayoutX(x);
         setLayoutY(y);
         setPrefWidth(ancho);
         setPrefHeight(alto);
-        setStyle("-fx-background-color: white; -fx-border-color: black;  -fx-border: 20px solid; -fx-background-radius: 15.0;");
+        setStyle("-fx-background-color: white; -fx-border-color: black;  -fx-border: 20px solid;");
     }
     
     public void setImage(){

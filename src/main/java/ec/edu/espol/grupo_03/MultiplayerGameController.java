@@ -3,6 +3,7 @@ package ec.edu.espol.grupo_03;
 import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
+import ec.edu.espol.model.MinimaxTree;
 import game.Symbol;
 import java.net.URL;
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class MultiplayerGameController {
     
     private boolean isGameOver;
     private Grid tablero;
+    private MinimaxTree tree;
     
     private int turns = 0;
     
@@ -122,6 +124,34 @@ public class MultiplayerGameController {
             currentPlayer = visitorPlayer;
         }
         updateCurrentSymbolImage();
+    }
+    
+    public void tree(){
+        tree = new MinimaxTree(tablero);
+        tree.generateTree(currentPlayer);
+    }
+    
+    public void aiMove(){
+        
+        tree();
+        //borderPane.getChildren().clear();
+        tree.minimax(true, currentPlayer);
+        tablero = tree.minimax();
+        setCellEvent();
+        setImages(tablero);
+        borderPane.setCenter(tablero);
+        //System.out.println(tablero.imprimirTablero());
+        //changeTurn();
+    }
+    
+    public void setImages(Grid g){
+        for(ArrayList<Cell> a : g.getGrid()){
+            for(Cell c : a){
+                if(c.getSymbol() != null){
+                    c.setImage();
+                }
+            }
+        }
     }
     
     public void setGrid(){
@@ -229,6 +259,20 @@ public class MultiplayerGameController {
     @FXML
     void helpPlayer(ActionEvent event) {
         System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
+        aiMove();
+        tablerosIntermedios();
+        verifyGameStatus();    /*Se tiene que evaluar el juego*/
+        changeTurn();
+        
+    }
+    
+    public void tablerosIntermedios(){
+        this.fx_tableros_intermedios.getChildren().clear();
+        for(MinimaxTree t : tree.getRoot().getChildren()){
+            Grid g = t.getRoot().getContent().copy(100, 100);
+            setIconos(g);
+            fx_tableros_intermedios.getChildren().add(g);
+        }
     }
     
     private void verifyGameStatus(){
@@ -276,6 +320,16 @@ public class MultiplayerGameController {
         InformationLog.createPlayerLog(localPlayer);
         InformationLog.createPlayerLog(visitorPlayer);
         System.out.println("Se ha generado PlayerLog correctamente");
+    }
+    
+    public void setIconos(Grid g){
+        for(ArrayList<Cell> a : g.getGrid()){
+            for(Cell c : a){
+                if(c.getSymbol() != null){
+                    c.setIcon();
+                }
+            }
+        }
     }
     
     

@@ -12,20 +12,20 @@ import model.tree.Tree;
  *
  * @author Fernando
  */
-public class MinimaxNode<T> {
+public class MinimaxTreeNode<T> {
     private T content;
-    private ArrayList<Minimax> children;
+    private ArrayList<MinimaxTree> children;
     
-    public MinimaxNode(T value){
+    public MinimaxTreeNode(T value){
         this.content = value;
         this.children = new ArrayList<>();
     }
     
-    public MinimaxNode(){
+    public MinimaxTreeNode(){
         
     }
     
-    public ArrayList<Minimax> getChildren(){
+    public ArrayList<MinimaxTree> getChildren(){
         return children;
     }
 
@@ -33,7 +33,7 @@ public class MinimaxNode<T> {
         return content;
     }
     
-    public void setChildren(ArrayList<Minimax> children){
+    public void setChildren(ArrayList<MinimaxTree> children){
         this.children = children;
     }
     

@@ -11,7 +11,9 @@ import javafx.scene.input.MouseEvent;
 import model.players.Player;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 
 
@@ -34,18 +36,30 @@ public class SingleplayerOptionsController {
     public static Symbol aiSymbol;
     public static boolean isPlayerFrist;
     public static String humanName;
+    public static String difficulty;
+    public static boolean isXtreme;
+    @FXML
+    private CheckBox checkbox_maxMode;
+    @FXML
+    private RadioButton rbFacil;
+    @FXML
+    private ToggleGroup dificultad;
+    @FXML
+    private RadioButton rbDificil;
     
     @FXML
     void switchToSingleplayerGame(ActionEvent event) {
         if(checkbox_is_first.isSelected())
             isPlayerFrist = true;
+//        if(checkbox_maxMode.isSelected())
+//            isXtreme = true;
         
-        if(namefield.getText() != null && !namefield.getText().equals("")){
+        if(namefield.getText() != null && !namefield.getText().equals("") && (rbFacil.isSelected() || rbDificil.isSelected())){
             humanName = namefield.getText();
             App.switchScenes(event, "SingleplayerGame", 1100, 830);
         } else {
             GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Completa todos los campos!");
-        }
+        } 
         
         
         
@@ -56,6 +70,7 @@ public class SingleplayerOptionsController {
     private void initialize() {
         /*Valores por defecto de inicialización*/
         isPlayerFrist = false;
+        isXtreme = false;
         playerSymbol = Symbol.X;
         aiSymbol = Symbol.O;
         humanName = "You";
@@ -80,5 +95,15 @@ public class SingleplayerOptionsController {
         aiSymbol = Symbol.O;
         label_selection_symbol.setText("Usted ha seleccionado X");
         System.out.println("Se ha seleccionado X");
+    }
+
+    @FXML
+    private void facilSelected(ActionEvent event) {
+        difficulty = "FACIL";
+    }
+
+    @FXML
+    private void dificilSelected(ActionEvent event) {
+        difficulty = "DIFICIL";
     }
 }

@@ -3,11 +3,12 @@ package ec.edu.espol.grupo_03;
 import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
-import ec.edu.espol.model.Minimax;
+import ec.edu.espol.model.MinimaxTree;
 import game.Symbol;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -29,7 +30,7 @@ public class AIPlayersGameController {
     private boolean isGameOver;
     private Grid tablero;
     private int turns = 0;
-    private Minimax tree;
+    private MinimaxTree tree;
     private Player localPlayer;
     private Player visitorPlayer;
     private Player currentPlayer;  
@@ -73,17 +74,16 @@ public class AIPlayersGameController {
     }
         
     public void tree(){
-        tree = new Minimax(tablero);
+        tree = new MinimaxTree(tablero);
         tree.generateTree(currentPlayer);
     }
     
     @FXML
     void nextAIMovement(ActionEvent event) {
         tree();
-        //borderPane.getChildren().clear();
         tree.minimax(true, currentPlayer);
         tablero = tree.minimax();
-        setCellEvent();
+        tablerosIntermedios();
         setImages(tablero);
         borderPane.setCenter(tablero);
         verifyGameStatus();
@@ -97,9 +97,19 @@ public class AIPlayersGameController {
         whoStartsFirst(AIPlayersOptionsController.isLocalFirst);
         updateUIPlayerInformation();
         setGrid();
-        setCellEvent();
+        startRandomPositionAI();
+        
     }
-   
+    public void startRandomPositionAI(){
+        Random rd = new Random();
+        int x = rd.nextInt(3);
+        int y = rd.nextInt(3);
+        tablero.getGrid().get(y).get(x).setSymbol(currentPlayer.getPlayerSymbol());
+        setImages(tablero);
+        changeTurn();
+    
+    }
+    
     public void setImages(Grid g){
         for(ArrayList<Cell> a : g.getGrid()){
             for(Cell c : a){
@@ -121,7 +131,7 @@ public class AIPlayersGameController {
     }
     
     
-     /*Metodo para poner que jugador va a jugar primero*/
+    /*Metodo para poner que jugador va a jugar primero*/
     void whoStartsFirst(boolean isLocalFirst){
         if(isLocalFirst){
             currentPlayer = localPlayer;
@@ -130,7 +140,8 @@ public class AIPlayersGameController {
         }
         updateCurrentSymbolImage();
     }
-        /*Actualiza la imagen que se encuentra en la parte superior dependiendo del turno*/
+    
+    /*Actualiza la imagen que se encuentra en la parte superior dependiendo del turno*/
     private void updateCurrentSymbolImage(){
         String xPath = "src/main/resources/images/x1.png";
         String oPath = "src/main/resources/images/o.png";
@@ -159,37 +170,41 @@ public class AIPlayersGameController {
         tablero.generateGrid();
         borderPane.setCenter(tablero);
     }
-        private void verifyGameStatus(){
+    
+    private void verifyGameStatus() {
         int status = GameValidator.gameValidation(tablero);
-        if(status > 0){
+        if (status > 0) {
             System.out.println("Se ha acabado el juego");
             Symbol winnerSymbol = GameValidator.getWinner();
-            
-            if(status == 1 && winnerSymbol.equals(visitorPlayer.getPlayerSymbol()) ){
-                
+
+            if (status == 1 && winnerSymbol.equals(visitorPlayer.getPlayerSymbol())) {
+
                 GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + visitorPlayer.getName());
                 /*Actualizacion de puntaje*/
                 int currentWins = visitorPlayer.getWins() + 1;
                 visitorPlayer.setWins(currentWins);
-                
+
             } else if (status == 1) {
                 System.out.println("Ha ganado " + localPlayer.getName());
                 GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ha ganado " + localPlayer.getName());
-                
-                 /*Actualizacion de puntaje*/
+
+                /*Actualizacion de puntaje*/
                 int currentWins = localPlayer.getWins() + 1;
                 localPlayer.setWins(currentWins);
-            } if (status == 2){
+            }
+            if (status == 2) {
                 GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Han quedado empate");
             }
             /*En caso de que WIN o TIE*/
-            updateUIPlayersWins(); /*Se actualiza el puntaje*/
-            resetGame();           /*Se actualiza el tablero*/
+            updateUIPlayersWins();
+            /*Se actualiza el puntaje*/
+            resetGame();
+            /*Se actualiza el tablero*/
         }
-    
-}
+
+    }
        
-        /*Se actualiza la UI que contiene los puntajes*/
+    /*Se actualiza la UI que contiene los puntajes*/
     private void updateUIPlayersWins(){
         localPointsLabel.setText(String.valueOf(localPlayer.getWins()));
         visitorPointsLabel.setText(String.valueOf(visitorPlayer.getWins()));
@@ -198,22 +213,8 @@ public class AIPlayersGameController {
     /*Vuelve a cargar todos los datos*/
     private void resetGame(){
         setGrid();
-    }
-    
-    public void setCellEvent(){
-        for(ArrayList<Cell> l: this.tablero.getGrid()){
-            for(Cell c : l){
-                c.setOnMouseClicked(e -> {
-                    if(e.getButton() == MouseButton.PRIMARY){
-                        if(c.getSymbol() == null){
-                            c.setSymbol(this.currentPlayer.getPlayerSymbol());
-                            changeTurn();
-                        }
-                    }
-                    c.setImage();
-                });
-            }
-        }
+        startRandomPositionAI();
+        changeTurn();
     }
     
     public void changeTurn(){
@@ -221,6 +222,25 @@ public class AIPlayersGameController {
             currentPlayer = visitorPlayer;
         } else{
             currentPlayer = localPlayer;
+        }
+    }
+    
+    public void tablerosIntermedios(){
+        this.fx_tableros_intermedios.getChildren().clear();
+        for(MinimaxTree t : tree.getRoot().getChildren()){
+            Grid g = t.getRoot().getContent().copy(100, 100);
+            setIconos(g);
+            fx_tableros_intermedios.getChildren().add(g);
+        }
+    }
+    
+    public void setIconos(Grid g){
+        for(ArrayList<Cell> a : g.getGrid()){
+            for(Cell c : a){
+                if(c.getSymbol() != null){
+                    c.setIcon();
+                }
+            }
         }
     }
     

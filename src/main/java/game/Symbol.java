@@ -4,5 +4,6 @@ package game;
 
 public enum Symbol {
     X ,
-    O
+    O ,
+    N
 }

@@ -3,16 +3,18 @@ package ec.edu.espol.grupo_03;
 import alerts.GameAlert;
 import ec.edu.espol.model.Cell;
 import ec.edu.espol.model.Grid;
-import ec.edu.espol.model.Minimax;
+import ec.edu.espol.model.MinimaxTree;
 import game.Symbol;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -21,6 +23,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import model.players.Player;
 import playerlog.InformationLog;
 import validation.GameValidator;
@@ -33,12 +37,14 @@ public class SingleplayerGameController {
     
     
     private Grid tablero;
-    private Minimax tree;
+    private MinimaxTree tree;
     private boolean isGameOver;
     
     private Player humanPlayer;
     private Player AIplayer;
     private Player currentPlayer;
+    private boolean isXtreme;
+    private String difficulty;
     
     
     @FXML
@@ -58,6 +64,10 @@ public class SingleplayerGameController {
     
     @FXML
     private ImageView playerImageSymbol;
+    @FXML
+    private Text tiempotxt;
+    @FXML
+    private Text tiempoContador;
  
     
     @FXML
@@ -83,7 +93,7 @@ public class SingleplayerGameController {
         setUpGame();
     }
     
-        private void loadPlayerImage(){
+    private void loadPlayerImage(){
         String xPath = "src/main/resources/images/x1.png";
         String oPath = "src/main/resources/images/o.png";
     
@@ -107,15 +117,20 @@ public class SingleplayerGameController {
     public void setUpGame(){
         setUpPlayers();
         updateUIPlayerInformation();
+        loadPlayerImage();        
         setGrid();
         setCellEvent();
+        //tablerosIntermedios();
         whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
         loadPlayerImage();
 //        tablerosIntermedios();
+
     }
     
     /*Pone la informacion de los jugadores en la parte grafica*/
     public void updateUIPlayerInformation(){
+        isXtreme = SingleplayerOptionsController.isXtreme;
+        difficulty = SingleplayerOptionsController.difficulty;
         playerLabel.setText(humanPlayer.getName());
         playerPointsLabel.setText(String.valueOf(humanPlayer.getWins()));
         aiPointsLabel.setText(String.valueOf(AIplayer.getWins()));
@@ -123,9 +138,15 @@ public class SingleplayerGameController {
     
     private void whoStartsFirst(boolean isHumanFirst){
         /*Elige quien va a ser primero*/
-        if(isHumanFirst)  
+        if(isHumanFirst){  
             this.currentPlayer = humanPlayer;
-        else{
+//            if(isXtreme){
+//                HiloGame hg = new HiloGame();
+//                Thread hilo = new Thread(hg);
+//                hilo.setDaemon(true);
+//                hilo.start();
+//            }
+        } else{
             this.currentPlayer = AIplayer;
             aiMove();
         }
@@ -148,6 +169,7 @@ public class SingleplayerGameController {
                             verifyGameStatus();
                             changeTurn();
                             verifyGameStatus();
+                            //System.out.println(tablero.imprimirTablero());
                         } else {
                             GameAlert.mostrarAlerta(Alert.AlertType.ERROR, "Ya se encuentra una ficha en este lugar");
                         }
@@ -156,6 +178,7 @@ public class SingleplayerGameController {
             }
         }
     }
+
     
     
     /*Cambio de simbolo dependiendo del jugador que se encuentre en Current*/
@@ -165,25 +188,40 @@ public class SingleplayerGameController {
             aiMove();   /*Movimiento de máquina*/
         } else{
             currentPlayer = humanPlayer;
+//            if(isXtreme){
+//                tiempoContador.setText("");
+//                HiloGame hg = new HiloGame();
+//                Thread hilo = new Thread(hg);
+//                hilo.setDaemon(true);
+//                hilo.start();
+//            }
         }
     }
     
     /*Metodo que ayuda al jugador a escoger el siguiente movimiento con el tablero actual*/
     @FXML
     void helpPlayer(ActionEvent event) {
-        System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
+        //System.out.println(currentPlayer.getName() + " Ha necesitado ayuda");
+        tree();
+        tree.minimax(true, currentPlayer);
+        tablerosIntermedios();
     }
     
     public void tree(){
-        tree = new Minimax(tablero);
+        tree = new MinimaxTree(tablero);
         tree.generateTree(currentPlayer);
     }
     
     public void tablerosIntermedios(){
-        for(Minimax t : tree.getRoot().getChildren()){
+        this.fx_tableros_intermedios.getChildren().clear();
+        for(MinimaxTree t : tree.getRoot().getChildren()){
             Grid g = t.getRoot().getContent().copy(100, 100);
+            g.setUtility(t.getRoot().getContent().getUtility());
             setIconos(g);
-            fx_tableros_intermedios.getChildren().add(g);
+            VBox vbox = new VBox();
+            vbox.getChildren().add(g);
+            vbox.getChildren().add(new Label("Utilidad: "+g.getUtility()));
+            fx_tableros_intermedios.getChildren().add(vbox);
         }
     }
     
@@ -210,11 +248,16 @@ public class SingleplayerGameController {
     public void aiMove(){
         tree();
         //borderPane.getChildren().clear();
-        tree.minimax(true, currentPlayer);
+        if(this.difficulty.equals("DIFICIL"))
+            tree.minimax(true, currentPlayer);
+        else
+            tree.minimaxEasy(true, currentPlayer);
         tablero = tree.minimax();
         setCellEvent();
         setImages(tablero);
         borderPane.setCenter(tablero);
+        //System.out.println(tablero.imprimirTablero());
+        tablerosIntermedios();
         changeTurn();
     }
     
@@ -263,5 +306,33 @@ public class SingleplayerGameController {
     private void generateLog(){
         InformationLog.createPlayerLog(humanPlayer);
         System.out.println("Se ha generado PlayerLog correctamente");
+    }
+    
+    public class HiloGame implements Runnable {
+
+        int temporizador = 6000;
+
+        @Override
+        public void run() {
+
+            while(true){
+                Platform.runLater(() -> {
+                    tiempotxt.setVisible(true);
+                    tiempoContador.setVisible(true);
+                    tiempoContador.setText(temporizador + "");
+                });
+                temporizador--;
+                if(temporizador == 0 || currentPlayer.equals(AIplayer))
+                    break;
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            if(currentPlayer.equals(humanPlayer))
+                changeTurn();
+        }
+
     }
 }
