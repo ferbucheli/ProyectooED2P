@@ -6,3 +6,8 @@ Blanca,23
 Darwin,12
 Jimmy,22
 Eduardo,1
+fer,1
+fer,0
+fer,2
+fer,0
+fer,0

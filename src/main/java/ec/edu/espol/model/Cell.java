@@ -62,6 +62,7 @@ public class Cell extends StackPane{
             this.getChildren().add(txt);
         } 
     }
+    
 
     public Symbol getSymbol() {
         return symbol;

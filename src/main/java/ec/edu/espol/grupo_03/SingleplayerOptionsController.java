@@ -31,7 +31,7 @@ public class SingleplayerOptionsController {
     
     @FXML
     private TextField namefield;
-
+//    
     public static Symbol playerSymbol;
     public static Symbol aiSymbol;
     public static boolean isPlayerFrist;

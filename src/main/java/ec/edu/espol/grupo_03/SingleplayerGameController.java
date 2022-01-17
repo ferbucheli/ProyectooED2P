@@ -65,6 +65,8 @@ public class SingleplayerGameController {
     private Text tiempotxt;
     @FXML
     private Text tiempoContador;
+    @FXML
+    private Label ayudas;
 
     @FXML
     void switchToMainMenu(ActionEvent event) {
@@ -78,6 +80,7 @@ public class SingleplayerGameController {
         Symbol humanSymbol = SingleplayerOptionsController.playerSymbol;
         Symbol AISymbol = SingleplayerOptionsController.aiSymbol;
         String humanName = SingleplayerOptionsController.humanName;
+        
 
         /*Se crean los jugadores para la partida*/
         this.humanPlayer = new Player(humanName, humanSymbol);
@@ -119,6 +122,7 @@ public class SingleplayerGameController {
         setCellEvent();
         //tablerosIntermedios();
         whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
+        this.ayudas.setText(this.currentPlayer.getAyudas() + "");
         loadPlayerImage();
 //        tablerosIntermedios();
 
@@ -183,9 +187,16 @@ public class SingleplayerGameController {
     /*Metodo que ayuda al jugador a escoger el siguiente movimiento con el tablero actual*/
     @FXML
     void helpPlayer(ActionEvent event) {
-        tree();
-        tree.minimax(true, currentPlayer);
-        tablerosIntermedios();
+        if(this.currentPlayer.getAyudas() > 0){
+            this.currentPlayer.setAyudas(currentPlayer.getAyudas() - 1);
+            this.ayudas.setText(this.currentPlayer.getAyudas() + "");
+            tree();
+            tree.minimax(true, currentPlayer);
+            tree.paintMaxUtil();
+            tablerosIntermedios();
+        } else {
+            GameAlert.mostrarAlerta(Alert.AlertType.INFORMATION, "Ya no te quedan mas ayudas!");
+        }
     }
 
     public void tree() {
@@ -197,6 +208,10 @@ public class SingleplayerGameController {
         this.fx_tableros_intermedios.getChildren().clear();
         for (MinimaxTree t : tree.getRoot().getChildren()) {
             Grid g = t.getRoot().getContent().copy(100, 100);
+            if(t.getRoot().getContent().isPainted){
+                String color = "88F985";
+                g.setCellColor(color);
+            }
             g.setUtility(t.getRoot().getContent().getUtility());
             setIconos(g);
             VBox vbox = new VBox();

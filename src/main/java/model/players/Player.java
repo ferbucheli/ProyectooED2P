@@ -12,6 +12,7 @@ public class Player implements Comparable<Player> {
     private final String name;
     private Symbol playerSymbol;
     private int wins;
+    private int ayudas;
 
     public int getWins() {
         return wins;
@@ -32,6 +33,7 @@ public class Player implements Comparable<Player> {
         this.name = name;
         this.playerSymbol = playerSymbol;
         this.wins = 0;
+        this.ayudas = 2;
     }
 
     public Player(String name) {
@@ -73,5 +75,14 @@ public class Player implements Comparable<Player> {
     public String toString() {
         return "Nombre = " + name + "\tpuntaje = " + wins;
     }
+
+    public int getAyudas() {
+        return ayudas;
+    }
+
+    public void setAyudas(int ayudas) {
+        this.ayudas = ayudas;
+    }
+    
     
 }

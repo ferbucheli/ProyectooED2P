@@ -19,7 +19,7 @@
                <children>
                   <Button mnemonicParsing="false" onAction="#switchToMainMenu" style="-fx-background-color: #1C4D4D;" textFill="WHITE">
                      <HBox.margin>
-                        <Insets left="15.0" right="380.0" />
+                        <Insets left="80.0" right="380.0" />
                      </HBox.margin>
                      <font>
                         <Font size="15.0" />
@@ -32,26 +32,43 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Label text="TRES EN RAYA" textFill="WHITE">
+                  <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="194.0" text="TRES EN RAYA" textFill="WHITE">
                      <font>
                         <Font name="Arial Bold" size="25.0" />
                      </font>
                      <HBox.margin>
-                        <Insets right="320.0" />
+                        <Insets right="290.0" />
                      </HBox.margin>
                   </Label>
-                  <Button mnemonicParsing="false" onAction="#helpPlayer" style="-fx-background-color: #1C4D4D;" text="HELP!" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="40.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../../../images/problem-solving.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="174.0" spacing="10.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#helpPlayer" prefWidth="103.0" style="-fx-background-color: #1C4D4D;" text="HELP!" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="40.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../../../images/problem-solving.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </Button>
+                        <Label prefHeight="16.0" prefWidth="133.0" text="Ayudas Restantes:" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="ayudas" prefHeight="22.0" prefWidth="134.0" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Arial Bold" size="16.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="40.0" />
+                     </HBox.margin>
+                  </VBox>
                </children>
             </HBox>
          </children>

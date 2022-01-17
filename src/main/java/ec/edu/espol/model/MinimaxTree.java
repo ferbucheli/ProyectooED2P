@@ -41,6 +41,17 @@ public class MinimaxTree {
         }
     }
     
+    public void paintMaxUtil(){
+        Grid result = new Grid();
+        result.setUtility(-1000000);
+        for(MinimaxTree t : this.root.getChildren()){
+            if(t.getRoot().getContent().compareTo(result) > 0){
+                result = t.getRoot().getContent();
+            }
+        }
+        result.isPainted = true;
+    }
+    
     public void generateTree(Player p){
         ArrayList<Grid> grids = this.root.getContent().generateMoves(p.getPlayerSymbol());
         insertChilds(grids);

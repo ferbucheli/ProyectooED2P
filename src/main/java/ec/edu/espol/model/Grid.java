@@ -19,6 +19,7 @@ public class Grid extends Pane implements Comparable<Grid>{
     private int utility;
     public static int WON = 100;
     public static int LOSS = -100;
+    public boolean isPainted = false;
     
     public Grid(int filas, int columnas, int width, int height){       
         this.grid = new ArrayList<>();
@@ -36,6 +37,14 @@ public class Grid extends Pane implements Comparable<Grid>{
 
     public Grid() {
         this.utility = 0;
+    }
+    
+    public void setCellColor(String color){
+        for(ArrayList<Cell> a : this.grid){
+            for(Cell c : a){
+                c.setStyle("-fx-background-color: #" + color +"; -fx-border-color: black;  -fx-border: 20px solid;");
+            }
+        }
     }
     
     
@@ -242,6 +251,7 @@ public class Grid extends Pane implements Comparable<Grid>{
         }
     
     }
+    
     
     
 }
