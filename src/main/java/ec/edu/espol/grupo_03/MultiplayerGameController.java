@@ -268,9 +268,14 @@ public class MultiplayerGameController {
     }
     
     public void tablerosIntermedios(){
+        tree.paintMaxUtil();
         this.fx_tableros_intermedios.getChildren().clear();
         for(MinimaxTree t : tree.getRoot().getChildren()){
             Grid g = t.getRoot().getContent().copy(100, 100);
+            if(t.getRoot().getContent().isPainted){
+                String color = "88F985";
+                g.setCellColor(color);
+            }
             g.setUtility(t.getRoot().getContent().getUtility());
             setIconos(g);
             VBox vbox = new VBox();
