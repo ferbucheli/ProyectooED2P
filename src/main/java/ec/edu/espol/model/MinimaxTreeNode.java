@@ -6,7 +6,6 @@
 package ec.edu.espol.model;
 
 import java.util.ArrayList;
-import model.tree.Tree;
 
 /**
  *

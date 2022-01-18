@@ -3,7 +3,6 @@ package ec.edu.espol.model;
 import game.Symbol;
 import java.util.ArrayList;
 import model.players.Player;
-import model.tree.Tree;
 import validation.GameValidator;
 
 /**
