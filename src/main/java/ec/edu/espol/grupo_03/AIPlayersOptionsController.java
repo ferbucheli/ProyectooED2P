@@ -51,7 +51,7 @@ public class AIPlayersOptionsController {
         if(aiFirstCheckBox.isSelected())
             isLocalFirst = true;
         
-        App.switchScenes(event, "AIPlayersGame", 1080, 700);
+        App.switchScenes(event, "AIPlayersGame", 1080, 650);
     }
 
     @FXML

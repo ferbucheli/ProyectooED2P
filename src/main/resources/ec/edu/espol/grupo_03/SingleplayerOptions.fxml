@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerOptionsController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="660.0" prefWidth="600.0" style="-fx-background-color: #14bcac;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ec.edu.espol.grupo_03.SingleplayerOptionsController">
    <children>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -77,6 +77,18 @@
             </Label>
          </children>
       </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="45.0" prefWidth="600.0">
+         <children>
+            <Label text="Opciones Adicionales:" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="22.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
       <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0">
          <children>
             <Label prefHeight="41.0" prefWidth="206.0" text="Yo inicio Partida:   " textFill="WHITE">
@@ -86,21 +98,8 @@
             <CheckBox fx:id="checkbox_is_first" mnemonicParsing="false" />
          </children>
       </HBox>
-      <HBox prefHeight="54.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="62.0" prefWidth="600.0">
          <children>
-            <Label prefHeight="35.0" prefWidth="178.0" text="Modo Extremo:" textFill="WHITE">
-               <font>
-                  <Font size="24.0" />
-               </font>
-               <HBox.margin>
-                  <Insets left="100.0" />
-               </HBox.margin>
-            </Label>
-            <CheckBox fx:id="checkbox_maxMode" mnemonicParsing="false">
-               <HBox.margin>
-                  <Insets top="10.0" />
-               </HBox.margin>
-            </CheckBox>
             <Label prefHeight="35.0" prefWidth="116.0" text="Dificultad:" textFill="WHITE">
                <font>
                   <Font size="24.0" />
@@ -109,7 +108,7 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </Label>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0">
+            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="7.0">
                <children>
                   <RadioButton fx:id="rbFacil" mnemonicParsing="false" onAction="#facilSelected" text="Facil" textFill="WHITE">
                      <toggleGroup>

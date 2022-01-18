@@ -18,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.players.Player;
 import validation.GameValidator;
 
@@ -229,8 +230,12 @@ public class AIPlayersGameController {
         this.fx_tableros_intermedios.getChildren().clear();
         for(MinimaxTree t : tree.getRoot().getChildren()){
             Grid g = t.getRoot().getContent().copy(100, 100);
+            g.setUtility(t.getRoot().getContent().getUtility());
             setIconos(g);
-            fx_tableros_intermedios.getChildren().add(g);
+            VBox vbox = new VBox();
+            vbox.getChildren().add(g);
+            vbox.getChildren().add(new Label("Utilidad: "+g.getUtility()));
+            fx_tableros_intermedios.getChildren().add(vbox);
         }
     }
     

@@ -16,7 +16,7 @@ public class GameSelectionController {
 
     @FXML
     void switchToSingleplayerOptions(ActionEvent event) {
-        App.switchScenes(event, "SinglePlayerOptions", 600, 470);
+        App.switchScenes(event, "SinglePlayerOptions", 600, 660);
     }
     
     @FXML

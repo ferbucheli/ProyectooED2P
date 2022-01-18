@@ -52,7 +52,7 @@ public class TestGame {
         /*Mostrar hijos*/
         MinimaxTreeNode<Grid> root = tree.getRoot();
         ArrayList<MinimaxTree> children = root.getChildren();
-        tree.minimax(true, AIplayer);  /*de la maquina*/
+        tree.minimaxEasy(true, AIplayer);  /*de la maquina*/
         System.out.println("Minimax");
         for(MinimaxTree child: children){
             System.out.println("***************************");
@@ -174,7 +174,7 @@ public class TestGame {
         game3.setGrid(tableroQuemado3);
         
         game3.generateUtility(Symbol.O, Symbol.X);
-        //System.out.println(game3.getUtility());
+        System.out.println(game3.getUtility());
         //game3.showTablero();
         
     }

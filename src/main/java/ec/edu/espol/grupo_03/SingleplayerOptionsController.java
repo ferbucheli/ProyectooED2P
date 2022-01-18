@@ -37,9 +37,7 @@ public class SingleplayerOptionsController {
     public static boolean isPlayerFrist;
     public static String humanName;
     public static String difficulty;
-    public static boolean isXtreme;
-    @FXML
-    private CheckBox checkbox_maxMode;
+
     @FXML
     private RadioButton rbFacil;
     @FXML
@@ -51,8 +49,6 @@ public class SingleplayerOptionsController {
     void switchToSingleplayerGame(ActionEvent event) {
         if(checkbox_is_first.isSelected())
             isPlayerFrist = true;
-//        if(checkbox_maxMode.isSelected())
-//            isXtreme = true;
         
         if(namefield.getText() != null && !namefield.getText().equals("") && (rbFacil.isSelected() || rbDificil.isSelected())){
             humanName = namefield.getText();
@@ -70,7 +66,6 @@ public class SingleplayerOptionsController {
     private void initialize() {
         /*Valores por defecto de inicialización*/
         isPlayerFrist = false;
-        isXtreme = false;
         playerSymbol = Symbol.X;
         aiSymbol = Symbol.O;
         humanName = "You";
