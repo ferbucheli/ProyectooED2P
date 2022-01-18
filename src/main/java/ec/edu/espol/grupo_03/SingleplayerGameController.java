@@ -119,6 +119,9 @@ public class SingleplayerGameController {
         setCellEvent();
         //tablerosIntermedios();
         whoStartsFirst(SingleplayerOptionsController.isPlayerFrist);
+        loadPlayerImage();
+//        tablerosIntermedios();
+
     }
 
     /*Pone la informacion de los jugadores en la parte grafica*/
